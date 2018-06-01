@@ -8,9 +8,10 @@ import MainMenu from '../screens/MainMenu';
  */
 export const AppNavigator = createStackNavigator (
 	{
-		MainMenu: { screen: MainMenuScreen }
+		MainMenu: MainMenu
 	},
 	{
-		initialRouteName: "MainMenu"
+		initialRouteName: "MainMenu",
+		headerMode: "none"
 	}
 );

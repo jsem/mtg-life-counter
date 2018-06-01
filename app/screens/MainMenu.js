@@ -12,8 +12,10 @@ export default class MainMenu extends Component {
 	}
 
 	render () {
-		<View>
-			<Text>Basic Bitch Life Counter</Text>
-		</View>
+		return (
+			<View style={{flex: 1}}>
+				<Text style={{textAlign: "left", color: "black"}}>Basic Bitch Life Counter</Text>
+			</View>
+		);
 	}
 }
