@@ -1,0 +1,1 @@
+export const NOTE_START_GAME = "Game Started";
