@@ -25,12 +25,28 @@ export function deleteProfile(profileId) {
 /**
  * Create an UPDATE_PROFILE action
  * @param {*} profileId the id of the profile to update
- * @param {*} values JSON object containing the values to update on the profile
+ * @param {*} name the name to update the profile with (nullable)
+ * @param {*} foregroundColour the foreground colour to update the profile with (nullable)
+ * @param {*} backgroundColour the background colour to update the profile with (nullable)
+ * @param {*} backgroundImage the background image to update the profile with (nullable)
  */
-export function updateProfile(profileId, values) {
-    return {
+export function updateProfile(profileId, name, foregroundColour, backgroundColour, backgroundImage) {
+    let profileUpdate = {
         type: UPDATE_PROFILE,
         profileId: profileId,
-        values: values
+        values: {}
     }
+    if (name != null) {
+        profileUpdate.values["name"] = name;
+    }
+    if (foregroundColour != null) {
+        profileUpdate.values["foregroundColour"] = foregroundColour;
+    }
+    if (backgroundColour != null) {
+        profileUpdate.values["backgroundColour"] = backgroundColour;
+    }
+    if (backgroundImage != null) {
+        profileUpdate.values["backgroundImage"] = backgroundImage;
+    }
+    return profileUpdate;
 }

@@ -1,6 +1,4 @@
-import { ADD_HISTORY } from '../actions/GameAction';
-import { END_GAME } from '../actions/GameAction';
-import { START_GAME } from '../actions/GameAction';
+import { ADD_HISTORY, END_GAME, START_GAME } from '../actions/GameAction';
 import { NOTE_START_GAME } from '../config/notes';
 
 export const initialState = {
