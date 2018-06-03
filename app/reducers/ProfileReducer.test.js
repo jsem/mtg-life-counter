@@ -221,7 +221,7 @@ describe('profileReducer', () => {
             })
         })
 
-        it('updates nonexistant profile', () => {
+        it('returns current state when trying to update nonexistant profile', () => {
             expect(
                 profileReducer(
                     undefined,
