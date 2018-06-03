@@ -3,7 +3,7 @@ import { END_GAME } from '../actions/GameAction';
 import { START_GAME } from '../actions/GameAction';
 import { NOTE_START_GAME } from '../config/notes';
 
-const initialState = {
+export const initialState = {
     numberPlayers: 2,
     startingLife: 20,
     startTime: "",
@@ -26,7 +26,7 @@ export default function gameReducer(state = initialState, action) {
                     {
                         timestamp: action.timestamp,
                         playerId: action.playerId,
-                        note: note
+                        note: action.note
                     }
                 ]
             }
