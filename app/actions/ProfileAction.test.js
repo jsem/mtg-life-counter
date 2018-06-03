@@ -1,7 +1,7 @@
 import { CREATE_PROFILE, DELETE_PROFILE, UPDATE_PROFILE } from './ProfileAction';
 import { createProfile, deleteProfile, updateProfile } from './ProfileAction';
 
-describe('PlayerAction', () => {
+describe('ProfileAction', () => {
     it('createProfile action creator creates a CREATE_PROFILE action', () => {
         expect(
             createProfile()
@@ -23,7 +23,7 @@ describe('PlayerAction', () => {
         })
     })
 
-    describe('PayerAction#updateProfile', () => {
+    describe('ProfileAction#updateProfile', () => {
         let profileId = '1';
         let name = 'playerName';
         let foregroundColour = '#123';

@@ -68,7 +68,7 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
         type: UPDATE_COMMANDER_DAMAGE,
         playerId: playerId,
         opposingPlayerId: opposingPlayerId,
-        amount:amount
+        amount: amount
     }
 }
 
@@ -76,24 +76,24 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
   * Create an UPDATE_PLAYER action
   * @param {*} playerId the id of the player to edit
   * @param {*} name name of the player (nullable)
-  * @param {*} foregroundColor foreground color of the player (nullable)
-  * @param {*} backgroundColor background color of the player (nullable)
+  * @param {*} foregroundColour foreground colour of the player (nullable)
+  * @param {*} backgroundColour background colour of the player (nullable)
   * @param {*} backgroundImage background image of the player (nullable)
   */
-export function updatePlayer(playerId, name, foregroundColor, backgroundColor, backgroundImage) {
-    playerUpdate = {
+export function updatePlayer(playerId, name, foregroundColour, backgroundColour, backgroundImage) {
+    let playerUpdate = {
         type: UPDATE_PLAYER,
         playerId: playerId,
-        values = {}
+        values: {}
     }
     if(name != null) {
         playerUpdate.values["name"] = name;
     }
-    if(foregroundColor != null) {
-        playerUpdate.values["foregroundColor"] = foregroundColor;
+    if(foregroundColour != null) {
+        playerUpdate.values["foregroundColour"] = foregroundColour;
     }
-    if(backgroundColor != null) {
-        playerUpdate.values["backgroundColor"] = backgroundColor;
+    if(backgroundColour != null) {
+        playerUpdate.values["backgroundColour"] = backgroundColour;
     }
     if(backgroundImage != null) {
         playerUpdate.values["backgroundImage"] = backgroundImage;
