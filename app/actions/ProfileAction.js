@@ -4,12 +4,10 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
 /**
  * Create a CREATE_PROFILE action
- * @param {*} profileId the id of the profile to create (nullable)
  */
-export function createProfile(profileId) {
+export function createProfile() {
     return {
-        type: CREATE_PROFILE,
-        profileId: profileId
+        type: CREATE_PROFILE
     }
 }
 

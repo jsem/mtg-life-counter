@@ -16,8 +16,12 @@ export default function profileReducer(state = initialState, action) {
     switch (action.type) {
         //add the new profile to the profiles object, using the default profile
         case CREATE_PROFILE:
+            let max = 0;
+            for (let profileId in { ...state }) {
+                max = (max < parseFloat(profileId)) ? parseFloat(profileId) : max;
+            }
             let newState = { ...state };
-            newState.profiles[action.profileId] = { ...DEFAULT_PROFILE };
+            newState.profiles[max.toString()] = { ...DEFAULT_PROFILE };
             return newState;
         //remove the profile from the profiles object
         case DELETE_PROFILE:
