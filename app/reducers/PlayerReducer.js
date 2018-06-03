@@ -1,14 +1,7 @@
-import { CREATE_PLAYER } from '../actions/PlayerAction';
-import { UPDATE_LIFE } from '../actions/PlayerAction';
-import { UPDATE_POISON } from '../actions/PlayerAction';
-import { UPDATE_COMMANDER_TAX } from '../actions/PlayerAction';
-import { UPDATE_COMMANDER_DAMAGE } from '../actions/PlayerAction';
-import { UPDATE_PLAYER } from '../actions/PlayerAction';
+import { CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 
-const initialState = {
-    players: {}
-}
+export const initialState = {}
 
 /**
  * Reducer for the player state
@@ -21,8 +14,8 @@ export default function playerReducer(state = initialState, action) {
         case CREATE_PLAYER:
             let newState = { ...state };
             let profile = action.profile == null ? { ...DEFAULT_PROFILE } : { ...action.profile };
-            playerId = Object.keys(newState.players).length;
-            newState.players[playerId] = {
+            playerId = Object.keys(newState).length;
+            newState[playerId] = {
                 id: playerId,
                 ...profile,
                 life: action.startingLife,
@@ -33,33 +26,48 @@ export default function playerReducer(state = initialState, action) {
             return newState;
         //update life value of specified player
         case UPDATE_LIFE:
+            if(action.playerId == null) {
+                return state;
+            }
             let newState = { ...state };
-            newState.players[action.playerId].life += action.amount;
+            newState[action.playerId].life += action.amount;
             return newState;
         //update poison value of specified player
         case UPDATE_POISON:
+            if(action.playerId == null) {
+                return state;
+            }
             let newState = { ...state };
-            newState.players[action.playerId].poison += action.amount;
+            newState[action.playerId].poison += action.amount;
             return newState;
         //update commander tax value of specified player
         case UPDATE_COMMANDER_TAX:
+            if(action.playerId == null) {
+                return state;
+            }
             let newState = { ...state };
-            newState.players[action.playerId].commanderTax += action.amount;
+            newState[action.playerId].commanderTax += action.amount;
             return newState;
         //update commander damage value from opposing player of specified player
         case UPDATE_COMMANDER_DAMAGE:
+            if(action.playerId == null || action.opposingPlayerId == null) {
+                return state;
+            }
             let newState = { ...state };
-            if(newState.players[action.opposingPlayerId] == null) {
-                newState.players[action.opposingPlayerId] = action.amount;
+            if(newState[action.opposingPlayerId] == null) {
+                newState[action.opposingPlayerId] = action.amount;
             } else {
-                newState.players[action.opposingPlayerId] += action.amount;
+                newState[action.opposingPlayerId] += action.amount;
             }
             return newState;
         //update player customisations from player menu for specified player
         case UPDATE_PLAYER:
+            if(action.playerId == null) {
+                return state;
+            }
             let newState = { ...state };
-            newState.players[action.playerId] = {
-                ...newState.players[action.playerId],
+            newState[action.playerId] = {
+                ...newState[action.playerId],
                 ...action.values
             }
             return newState;
