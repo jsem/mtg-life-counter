@@ -32,7 +32,7 @@ export function endGame() {
  * @param {*} numberPlayers the number of players in the game
  * @param {*} timestamp the timetamp when the game started
  */
-export function startGame(startingLife, numberPlayers, profiles, timestamp) {
+export function startGame(startingLife, numberPlayers, timestamp) {
     return {
         type: START_GAME,
         startingLife: startingLife,

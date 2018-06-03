@@ -12,12 +12,12 @@ const initialState = {
 
 /**
  * Reducer for the game state
- * @param {*} state the current state, default ot initialState
+ * @param {*} state the current state, default of initialState
  * @param {*} action the action to process. can be one of ADD_HISTORY, END_GAME, or START_GAME
  */
 export default function gameReducer(state = initialState, action) {
     switch (action.type) {
-        //add a newe hitory item to the history array
+        //add a new history item to the history array
         case ADD_HISTORY:
             return {
                 ...state,
