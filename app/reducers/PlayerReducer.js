@@ -26,8 +26,9 @@ export default function playerReducer(state = initialState, action) {
             } else {
                 profile = { ...action.profile };
             }
-            newState.players[action.playerId] = {
-                id: Object.keys(newState.players).length,
+            playerId = Object.keys(newState.players).length;
+            newState.players[playerId] = {
+                id: playerId,
                 name: profile.name,
                 foregroundColor: profile.foregroundColor,
                 backgroundColor: profile.backgroundColor,
