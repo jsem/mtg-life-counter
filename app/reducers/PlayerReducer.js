@@ -24,11 +24,8 @@ export default function playerReducer(state = initialState, action) {
             playerId = Object.keys(newState.players).length;
             newState.players[playerId] = {
                 id: playerId,
-                name: profile.name,
-                foregroundColor: profile.foregroundColor,
-                backgroundColor: profile.backgroundColor,
-                backgroundImage: profile.backgroundImage,
-                life: 0,
+                ...profile,
+                life: action.startingLife,
                 poison: 0,
                 commanderTax: 0,
                 commanderDamage: {}
@@ -61,10 +58,9 @@ export default function playerReducer(state = initialState, action) {
         //update player customisations from player menu for specified player
         case UPDATE_PLAYER:
             let newState = { ...state };
-            newState.players[action.playerId].name = action.name;
-            newState.players[action.playerId].foregroundColor = action.foregroundColor;
-            newState.players[action.playerId].backgroundColor = action.backgroundColor;
-            newState.players[action.playerId].backgroundImage = action.backgroundImage;
+            newState.players[action.playerId] = {
+                ...action.values
+            }
             return newState;
         //return the current state if unknown
         default:

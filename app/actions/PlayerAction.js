@@ -9,10 +9,11 @@ export const UPDATE_PLAYER = 'UPDATE_PLAYER';
  * Create a CREATE_PLAYER action
  * @param {*} profile a profile to apply to the player (nullable)
  */
-export function createPlayer(profile) {
+export function createPlayer(profile, startingLife) {
     return {
         type: CREATE_PLAYER,
-        profile: profile
+        profile: profile,
+        startingLife: startingLife
     }
 }
 
@@ -69,21 +70,32 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
         amount:amount
     }
 }
+
  /**
   * Create an UPDATE_PLAYER action
   * @param {*} playerId the id of the player to edit
-  * @param {*} name name of the player
-  * @param {*} foregroundColor foreground color of the player
-  * @param {*} backgroundColor background color of the player
-  * @param {*} backgroundImage background image of the player
+  * @param {*} name name of the player (nullable)
+  * @param {*} foregroundColor foreground color of the player (nullable)
+  * @param {*} backgroundColor background color of the player (nullable)
+  * @param {*} backgroundImage background image of the player (nullable)
   */
 export function updatePlayer(playerId, name, foregroundColor, backgroundColor, backgroundImage) {
-    return {
+    playerUpdate = {
         type: UPDATE_PLAYER,
         playerId: playerId,
-        name: name,
-        foregroundColor: foregroundColor,
-        backgroundColor: backgroundColor,
-        backgroundImage: backgroundImage
+        values = {}
     }
+    if(name != null) {
+        playerUpdate.values["name"] = name;
+    }
+    if(foregroundColor != null) {
+        playerUpdate.values["foregroundColor"] = foregroundColor;
+    }
+    if(backgroundColor != null) {
+        playerUpdate.values["backgroundColor"] = backgroundColor;
+    }
+    if(backgroundImage != null) {
+        playerUpdate.values["backgroundImage"] = backgroundImage;
+    }
+    return playerUpdate;
 }
