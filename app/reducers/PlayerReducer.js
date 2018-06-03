@@ -20,12 +20,7 @@ export default function playerReducer(state = initialState, action) {
         //add a new player to the players object. Use default profile if no profile is specified
         case CREATE_PLAYER:
             let newState = { ...state };
-            let profile = {};
-            if(action.profile == null) {
-                profile = { ...DEFAULT_PROFILE };
-            } else {
-                profile = { ...action.profile };
-            }
+            let profile = action.profile == null ? { ...DEFAULT_PROFILE } : { ...action.profile };
             playerId = Object.keys(newState.players).length;
             newState.players[playerId] = {
                 id: playerId,
