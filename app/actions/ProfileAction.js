@@ -33,6 +33,6 @@ export function updateProfile(profileId, values) {
     return {
         type: UPDATE_PROFILE,
         profileId: profileId,
-        values: { ...values }
+        values: values
     }
 }
