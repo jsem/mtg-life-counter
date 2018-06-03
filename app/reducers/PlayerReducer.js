@@ -59,6 +59,7 @@ export default function playerReducer(state = initialState, action) {
         case UPDATE_PLAYER:
             let newState = { ...state };
             newState.players[action.playerId] = {
+                ...newState.players[action.playerId],
                 ...action.values
             }
             return newState;
