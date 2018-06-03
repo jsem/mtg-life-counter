@@ -62,6 +62,20 @@ describe('profileReducer', () => {
                 '4': DEFAULT_PROFILE
             })
         })
+
+        it('correctly determines the max profile id', () => {
+            expect(
+                profileReducer(
+                    {
+                        '-1': DEFAULT_PROFILE
+                    },
+                    createProfile()
+                )
+            ).toEqual({
+                '-1': DEFAULT_PROFILE,
+                '1': DEFAULT_PROFILE
+            })
+        })
     })
 
     describe ('profileReducer#DELETE_PROFILE', () => {
