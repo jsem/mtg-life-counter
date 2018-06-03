@@ -7,7 +7,7 @@ export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 /**
  * Create a CREATE_PLAYER action
- * @param {*} profile a profile to apply to the player
+ * @param {*} profile a profile to apply to the player (nullable)
  */
 export function createPlayer(profile) {
     return {

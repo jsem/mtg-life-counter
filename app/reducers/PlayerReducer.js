@@ -17,7 +17,7 @@ const initialState = {
  */
 export default function playerReducer(state = initialState, action) {
     switch (action.type) {
-        // Add a new player to the players object. Use default profile if no profile is specified
+        //add a new player to the players object. Use default profile if no profile is specified
         case CREATE_PLAYER:
             let newState = { ...state };
             let profile = {};
@@ -38,22 +38,22 @@ export default function playerReducer(state = initialState, action) {
                 commanderDamage: {}
             }
             return newState;
-        // Update life value of specified player
+        //update life value of specified player
         case UPDATE_LIFE:
             let newState = { ...state };
             newState.players[action.playerId].life += action.amount;
             return newState;
-        // Update poison value of specified player
+        //update poison value of specified player
         case UPDATE_POISON:
             let newState = { ...state };
             newState.players[action.playerId].poison += action.amount;
             return newState;
-        // Update commander tax value of specified player
+        //update commander tax value of specified player
         case UPDATE_COMMANDER_TAX:
             let newState = { ...state };
             newState.players[action.playerId].commanderTax += action.amount;
             return newState;
-        // Update commander damage value from opposing player of specified player
+        //update commander damage value from opposing player of specified player
         case UPDATE_COMMANDER_DAMAGE:
             let newState = { ...state };
             if(newState.players[action.opposingPlayerId] == null) {
@@ -62,7 +62,7 @@ export default function playerReducer(state = initialState, action) {
                 newState.players[action.opposingPlayerId] += action.amount;
             }
             return newState;
-        // Update player customisations from player menu for specified player
+        //update player customisations from player menu for specified player
         case UPDATE_PLAYER:
             let newState = { ...state };
             newState.players[action.playerId].name = action.name;
