@@ -21,7 +21,7 @@ export default function profileReducer(state = initialState, action) {
                 max = (max < parseFloat(profileId)) ? parseFloat(profileId) : max;
             }
             let newState = { ...state };
-            newState.profiles[max.toString()] = { ...DEFAULT_PROFILE };
+            newState.profiles[(max++).toString()] = { ...DEFAULT_PROFILE };
             return newState;
         //remove the profile from the profiles object
         case DELETE_PROFILE:
