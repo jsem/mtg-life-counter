@@ -8,9 +8,9 @@ import profileReducer from './ProfileReducer';
  * Combined reducer for the global store
  */
 const reducer = combineReducers({
-    gameReducer,
-    playerReducer,
-    profileReducer
+    game: gameReducer,
+    player: playerReducer,
+    profile: profileReducer
 })
 
 export default reducer;

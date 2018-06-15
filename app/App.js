@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import KeepAwake from 'react-native-keep-awake';
 
 import { AppNavigator } from './config/routes';
+import { globalStyles } from './config/styles';
 
 /**
  * Main app class. Instantiates the navigation stack
@@ -11,19 +12,10 @@ import { AppNavigator } from './config/routes';
 export default class App extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={globalStyles.containerScreenVertical}>
 				<KeepAwake />
-				<AppNavigator style={styles.container}/>
+				<AppNavigator style={globalStyles.containerScreenVertical}/>
 			</View>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'stretch',
-		backgroundColor: '#F5FCFF',
-	}
-});

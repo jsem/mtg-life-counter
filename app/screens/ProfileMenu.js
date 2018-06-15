@@ -7,9 +7,9 @@ import { globalStyles } from '../config/styles';
 import { MenuContent, MenuHeader } from '../components/index';
 
 /**
- * Main app menu. Contains options to setup the game and manage profiles
+ * Menu listing all profiles. Allows you to add, edit and delete profiles.
  */
-export default class MainMenu extends Component {
+export default class ProfileMenu extends Component {
 	componentDidMount() {
 		Orientation.lockToPortrait();
 	}
@@ -18,9 +18,10 @@ export default class MainMenu extends Component {
 		return (
 			<View style={globalStyles.containerScreenVertical}>
 				<MenuHeader 
-					header="Life Counter"
-					iconRight="cog"
-					pressRight={() => {this.props.navigation.navigate('ProfileMenu')}}
+					header="Profiles"
+                    iconLeft="chevron-left"
+					iconRight="plus"
+					pressLeft={() => {this.props.navigation.navigate('MainMenu')}}
 				/>
 				<MenuContent>
 				</MenuContent>
