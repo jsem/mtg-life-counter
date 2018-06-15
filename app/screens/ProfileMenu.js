@@ -20,6 +20,7 @@ export default class ProfileMenu extends Component {
 				<MenuHeader 
 					header="Profiles"
                     iconLeft="chevron-left"
+                    iconLeftStyle={globalStyles.text}
 					iconRight="plus"
 					pressLeft={() => {this.props.navigation.navigate('MainMenu')}}
 				/>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { ScaledSheet } from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
+import IconButton from './IconButton';
 import { colourDarkGrey } from '../config/colours';
 import { globalStyles } from '../config/styles';
 
@@ -36,25 +36,20 @@ export default class MenuHeader extends Component {
     renderButton(icon, onPress, buttonStyle, iconStyle) {
         if (icon != null && icon != '') {
             return (
-                <TouchableOpacity 
-                    onPress={onPress}
-                    style={[
-                        globalStyles.containerHorizontalCenter,
-                        styles.button,
-                        this.props.buttonStyle,
+                <IconButton
+                    buttonStyle={[
+                        styles.button, 
+                        this.props.buttonStyle, 
                         buttonStyle
                     ]}
-                >
-                    <Icon name={icon} 
-                        style={[
-                            globalStyles.textLarge,
-                            globalStyles.textCenter,
-                            styles.icon,
-                            this.props.iconStyle,
-                            iconStyle
-                        ]
-                    }/>
-                </TouchableOpacity>
+                    icon={icon}
+                    iconStyle={[
+                        globalStyles.textLarge, 
+                        this.props.iconStyle, 
+                        iconStyle
+                    ]}
+                    onPress={onPress}
+                />
             );
         } else {
             return (
@@ -73,7 +68,12 @@ export default class MenuHeader extends Component {
                 styles.container,
                 this.props.containerStyle
             ]}>
-                {this.renderButton(this.props.iconLeft, this.props.pressLeft, this.props.buttonLeftStyle, this.props.iconLeftStyle)}
+                {this.renderButton(
+                    this.props.iconLeft, 
+                    this.props.pressLeft, 
+                    this.props.buttonLeftStyle, 
+                    this.props.iconLeftStyle
+                )}
 				<Text style={[
                     globalStyles.textLarge, 
                     globalStyles.textCenter, 
@@ -82,7 +82,12 @@ export default class MenuHeader extends Component {
                 ]}>
                     {this.props.header}
                 </Text>
-                {this.renderButton(this.props.iconRight, this.props.pressRight, this.props.buttonRightStyle, this.props.iconRightStyle)}
+                {this.renderButton(
+                    this.props.iconRight, 
+                    this.props.pressRight, 
+                    this.props.buttonRightStyle, 
+                    this.props.iconRightStyle
+                )}
 			</View>
 		);
 	}
@@ -100,9 +105,5 @@ const styles = ScaledSheet.create({
     header: {
         flex: 1,
         paddingVertical: '10@vs'
-    },
-
-    icon: {
-        flex: 1
     }
 })

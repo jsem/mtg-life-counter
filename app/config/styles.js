@@ -63,7 +63,7 @@ export const globalStyles = ScaledSheet.create({
     text: {
         color: colourLightGrey,
         fontFamily: 'Teko-Regular',
-        fontSize: '10@ms'
+        fontSize: '25@ms'
     },
 
     textLarge: {
