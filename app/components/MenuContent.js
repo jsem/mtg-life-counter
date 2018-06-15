@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import { colourGrey } from '../config/colours';
 import { globalStyles } from '../config/styles';
 
 /**
- * Main app menu. Contains options to setup the game and manage profiles
+ * Content container for a menu screen.
  * Props:
  * containerStyle: styles for the container (View)
+ * style: styles for the outer container (ScrollView)
  */
 export default class MenuContent extends Component {
 	render () {
 		return (
-			<View style={[
-                globalStyles.containerVertical, 
-                styles.container,
-                this.props.containerStyle
-            ]}>
+			<ScrollView 
+                containerStyle={[
+                    globalStyles.containerVertical, 
+                    styles.container,
+                    this.props.containerStyle
+                ]}
+                style={[
+                    styles.container,
+                    this.props.style
+                ]}
+            >
                 {this.props.children}
-			</View>
+			</ScrollView>
 		);
 	}
 }

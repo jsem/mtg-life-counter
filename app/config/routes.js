@@ -1,5 +1,6 @@
 import { createStackNavigator } from "react-navigation";
 
+import GameScreen from '../screens/GameScreen';
 import MainMenu from '../screens/MainMenu';
 import ProfileMenu from '../screens/ProfileMenu'
 
@@ -9,7 +10,8 @@ import ProfileMenu from '../screens/ProfileMenu'
 export const AppNavigator = createStackNavigator (
 	{
 		MainMenu: MainMenu,
-		ProfileMenu: ProfileMenu
+		ProfileMenu: ProfileMenu,
+		GameScreen: GameScreen
 	},
 	{
 		initialRouteName: "MainMenu",
