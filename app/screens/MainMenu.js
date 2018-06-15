@@ -74,7 +74,12 @@ class MainMenu extends Component {
 			<View>
 				{
 					this.state.profiles.map(profile => 
-						<MenuItem key={profileNumber}>
+						<MenuItem 
+							key={profileNumber}
+							containerStyle={
+								styles.itemNoMargin
+							}
+						>
 							<ProfileButton
 								key={profileNumber++ + "_button"}
 								profile={profile}
@@ -136,7 +141,11 @@ class MainMenu extends Component {
 							onPress={() => {this.setStartingLife(this.state.startingLife+1)}}
 						/>
 					</MenuItem>
-					<MenuItem>
+					<MenuItem
+						containerStyle={
+							styles.itemNoMargin
+						}
+					>
 						<RadioButton
 							onPress={this.setStartingLife}
 							selectedValue={this.state.startingLife}
@@ -173,6 +182,10 @@ class MainMenu extends Component {
 }
 
 const styles = StyleSheet.create({
+	itemNoMargin: {
+		marginVertical: 0
+	},
+
     startButton: {
         backgroundColor: colourLightGrey,
         borderRadius: 0,
