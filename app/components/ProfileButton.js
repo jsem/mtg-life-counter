@@ -4,12 +4,12 @@ import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { globalStyles } from '../config/styles';
 
 /**
- * Button with an icon
+ * Button that changes display based an a provided profile
  * Props:
- * icon: the name of the fontawesome icon to render
+ * profile: the profile used to style the button
  * onPress: the function to execute when the button is pressed
  * buttonStyle: custom styles for the button (TouchableOpacity)
- * iconStyle: custom styles for the icon (Text)
+ * textStyle: custom styles for the text (Text)
  */
 export default class ProfileButton extends Component {
     /**
