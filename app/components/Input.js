@@ -36,8 +36,7 @@ export default class Input extends Component {
 
 const styles = ScaledSheet.create({
     input: {
-        backgroundColor: colourLightGrey,
-        color: colourDarkGrey,
+        backgroundColor: colourInvisible,
         flex: 1
     }
 })

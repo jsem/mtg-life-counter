@@ -2,7 +2,6 @@ import { CREATE_PROFILE, DELETE_PROFILE, UPDATE_PROFILE } from '../actions/Profi
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 
 export const initialState = {
-    
 }
 
 /**

@@ -129,15 +129,18 @@ class MainMenu extends Component {
 					<MenuItem label="Starting Life">
 						<IconButton
 							icon="minus"
+							iconStyle={globalStyles.textSmall}
 							onPress={() => {this.setStartingLife(this.state.startingLife-1)}}
 						/>
 						<Input
 							keyboardType="numeric"
 							onChange={this.setStartingLife}
+							style={globalStyles.textLarge}
 							value={this.state.startingLife.toString()}
 						/>
 						<IconButton
 							icon="plus"
+							iconStyle={globalStyles.textSmall}
 							onPress={() => {this.setStartingLife(this.state.startingLife+1)}}
 						/>
 					</MenuItem>

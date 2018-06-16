@@ -60,6 +60,12 @@ export const globalStyles = ScaledSheet.create({
     },
 
     //text styles
+    textSmall: {
+        color: colourLightGrey,
+        fontFamily: 'Teko-Regular',
+        fontSize: '20@ms'
+    },
+
     text: {
         color: colourLightGrey,
         fontFamily: 'Teko-Regular',

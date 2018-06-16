@@ -1,6 +1,8 @@
 import playerReducer, { initialState } from './PlayerReducer';
-import { createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer } from '../actions/PlayerAction';
+import { endGame, startGame } from '../actions/GameAction';
+import { clearPlayers, createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
+import { colourDarkGrey, colourLightGrey } from '../config/colours';
 
 describe('playerReducer', () => {
     it ('should return the initial state', () => {
@@ -9,6 +11,47 @@ describe('playerReducer', () => {
         ).toEqual(
             initialState
         )
+    })
+
+    describe ('playerReducer#CLEAR_PLAYERS', () => {
+        it ('resets the state back to the initial value', () => {
+            expect(
+                playerReducer(
+                    playerReducer(
+                        playerReducer(
+                            undefined,
+                            createPlayer(null, null)
+                        ),
+                        createPlayer(null, null)
+                    ),
+                    clearPlayers()
+                )
+            ).toEqual({
+                ...initialState
+            })
+        })
+
+        it ('receives a CLEAR_PLAYERS action when using the endGame action creator', () => {
+            let state = playerReducer(
+                playerReducer(
+                    undefined,
+                    createPlayer(null, null)
+                ),
+                createPlayer(null, null)
+            );
+            endGame().map(action =>
+                state = playerReducer(
+                    state,
+                    action
+                )
+
+            );
+            expect(
+                state
+            ).toEqual({
+                ...initialState
+            })
+        })
     })
 
     describe ('playerReducer#CREATE_PLAYER', () => {
@@ -117,6 +160,49 @@ describe('playerReducer', () => {
                     foregroundColour: DEFAULT_PROFILE.foregroundColour,
                     backgroundColour: profile.backgroundColour,
                     backgroundImage: profile.backgroundImage,
+                    life: 20,
+                    poison: 0,
+                    commanderTax: 0,
+                    commanderDamage: {}
+                }
+            })
+        })
+
+        it('startGame action creator also creates 2 CREATE_PLAYER actions', () => {
+            let numberPlayers = 2;
+            let startingLife = 20;
+            let startTime = '1970-01-01T00:00:00+10';
+            let profile1 = {...DEFAULT_PROFILE};
+            let profile2 = {
+                backgroundColour: colourLightGrey,
+                name: 'Name',
+                foregroundColour: colourDarkGrey
+            };
+            let profiles = [
+                profile1,
+                profile2
+            ];
+            let state = undefined;
+            startGame(startingLife, numberPlayers, startTime, profiles).map(action =>
+                state = playerReducer(
+                    state,
+                    action
+                )
+            )
+            expect(
+                state
+            ).toEqual({
+                '0': {
+                    playerId: 0,
+                    ...profile1,
+                    life: 20,
+                    poison: 0,
+                    commanderTax: 0,
+                    commanderDamage: {}
+                },
+                '1': {
+                    playerId: 1,
+                    ...profile2,
                     life: 20,
                     poison: 0,
                     commanderTax: 0,

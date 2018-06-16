@@ -1,9 +1,19 @@
+export const CLEAR_PLAYERS = 'CLEAR_PLAYERS';
 export const CREATE_PLAYER = 'CREATE_PLAYER';
 export const UPDATE_LIFE = 'UPDATE_LIFE';
 export const UPDATE_POISON = 'UPDATE_POISON';
 export const UPDATE_COMMANDER_TAX = 'UPDATE_COMMANDER_TAX';
 export const UPDATE_COMMANDER_DAMAGE = 'UPDATE_COMMANDER_DAMAGE';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
+
+/**
+ * Create a CLEAR_PLAYERS action
+ */
+export function clearPlayers() {
+    return {
+        type: CLEAR_PLAYERS
+    }
+}
 
 /**
  * Create a CREATE_PLAYER action

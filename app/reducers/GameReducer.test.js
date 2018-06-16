@@ -1,5 +1,6 @@
 import gameReducer, { initialState } from './GameReducer';
 import { addHistory, endGame, startGame } from '../actions/GameAction';
+import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 import { NOTE_START_GAME } from '../config/notes';
 
 describe('gameReducer', () => {
@@ -89,17 +90,25 @@ describe('gameReducer', () => {
         let note = 'This is a history note';
 
         it('returns the initial state', () => {
-            expect(
-                gameReducer(
-                    gameReducer(
-                        gameReducer(
-                            undefined,
-                            startGame(startingLife, numberPlayers, timestamp)
-                        ),
-                        addHistory(timestamp, playerId, note)
-                    ),
-                    endGame()
+            let state = undefined;
+            startGame(startingLife, numberPlayers, timestamp).map(action =>
+                state = gameReducer(
+                    state,
+                    action
                 )
+            )
+            state = gameReducer(
+                state,
+                addHistory(timestamp, playerId, note)
+            )
+            endGame().map(action => 
+                state = gameReducer(
+                    state,
+                    action
+                )
+            )
+            expect(
+                state
             ).toEqual(
                 initialState
             )
@@ -113,13 +122,21 @@ describe('gameReducer', () => {
         let startingLife2 = 40;
         let startTime = '1970-01-01T00:00:00+10';
         let startTime2 = '2000-11-11T11:11:11+10';
+        let profiles = [
+            DEFAULT_PROFILE,
+            DEFAULT_PROFILE
+        ];
 
         it('sets up the game state', () => {
-            expect(
-                gameReducer(
-                    undefined,
-                    startGame(startingLife, numberPlayers, startTime)
+            let state = undefined;
+            startGame(startingLife, numberPlayers, startTime, profiles).map(action =>
+                state = gameReducer(
+                    state,
+                    action
                 )
+            )
+            expect(
+                state
             ).toEqual({
                 numberPlayers: numberPlayers,
                 startingLife: startingLife,
@@ -134,14 +151,21 @@ describe('gameReducer', () => {
         })
 
         it('resets the game state if called twice', () => {
-            expect(
-                gameReducer(
-                    gameReducer(
-                        undefined,
-                        startGame(startingLife, numberPlayers, startTime)
-                    ),
-                    startGame(startingLife2, numberPlayers2, startTime2)
+            let state = undefined;
+            startGame(startingLife, numberPlayers, startTime).map(action =>
+                state = gameReducer(
+                    state,
+                    action
                 )
+            )
+            startGame(startingLife2, numberPlayers2, startTime2).map(action =>
+                state = gameReducer(
+                    state,
+                    action
+                )
+            )
+            expect(
+                state
             ).toEqual({
                 numberPlayers: numberPlayers2,
                 startingLife: startingLife2,
