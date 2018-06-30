@@ -17,7 +17,6 @@ export default class ProfileButton extends Component {
      */
     renderInner = () => {
         if (this.props.profile.backgroundImage != null && this.props.profile.backgroundImage != "") {
-            console.log("rendering image");
             return (
                 <ImageBackground
                     key={this.key + "_image"}
