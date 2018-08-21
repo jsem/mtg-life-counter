@@ -62,9 +62,9 @@ export default class ProfileButton extends Component {
         )
     }
 
-	render () {
-		return (
-			<TouchableOpacity 
+    render () {
+        return (
+            <TouchableOpacity 
                 key={this.key + "_profileButton"}
                 onPress={this.props.onPress}
                 style={[
@@ -79,8 +79,8 @@ export default class ProfileButton extends Component {
             >
                 {this.renderInner()}
             </TouchableOpacity>
-		);
-	}
+        );
+    }
 }
 
 const styles = StyleSheet.create({

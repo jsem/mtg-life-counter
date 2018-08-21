@@ -15,14 +15,14 @@ const store = createStore(reducer);
  * Main app class. Instantiates the navigation stack
  */
 export default class App extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<View style={globalStyles.containerScreenVertical}>
-					<KeepAwake />
-					<AppNavigator style={globalStyles.containerScreenVertical}/>
-				</View>
-			</Provider>
-		);
-	}
+    render() {
+        return (
+            <Provider store={store}>
+                <View style={globalStyles.containerScreenVertical}>
+                    <KeepAwake />
+                    <AppNavigator style={globalStyles.containerScreenVertical}/>
+                </View>
+            </Provider>
+        );
+    }
 }

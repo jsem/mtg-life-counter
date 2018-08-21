@@ -80,9 +80,9 @@ export default class MenuItem extends Component {
         }
     }
 
-	render () {
-		return (
-			<View 
+    render () {
+        return (
+            <View 
                 key={this.key + "_menuItemContainer"}
                 style={[
                     globalStyles.containerHorizontal, 
@@ -92,9 +92,9 @@ export default class MenuItem extends Component {
             >
                 {this.renderLabel()}
                 {this.renderChildren()}
-			</View>
-		);
-	}
+            </View>
+        );
+    }
 }
 
 const styles = ScaledSheet.create({

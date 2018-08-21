@@ -16,7 +16,7 @@ export const globalStyles = ScaledSheet.create({
         padding: 0
     },
     
-	containerScreenVertical: {
+    containerScreenVertical: {
         alignItems: 'stretch',
         flex: 1,
         flexDirection: 'column',
@@ -34,7 +34,7 @@ export const globalStyles = ScaledSheet.create({
         padding: 0
     },
     
-	containerVertical: {
+    containerVertical: {
         alignItems: 'stretch',
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -51,7 +51,7 @@ export const globalStyles = ScaledSheet.create({
         padding: 0
     },
     
-	containerVerticalCenter: {
+    containerVerticalCenter: {
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'flex-start',

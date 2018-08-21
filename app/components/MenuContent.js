@@ -11,9 +11,9 @@ import { globalStyles } from '../config/styles';
  * style: styles for the outer container (ScrollView)
  */
 export default class MenuContent extends Component {
-	render () {
-		return (
-			<ScrollView 
+    render () {
+        return (
+            <ScrollView 
                 containerStyle={[
                     globalStyles.containerVertical, 
                     styles.container,
@@ -25,9 +25,9 @@ export default class MenuContent extends Component {
                 ]}
             >
                 {this.props.children}
-			</ScrollView>
-		);
-	}
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

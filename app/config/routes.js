@@ -8,13 +8,13 @@ import ProfileMenu from '../screens/ProfileMenu'
  * Navigator for the app
  */
 export const AppNavigator = createStackNavigator (
-	{
-		MainMenu: MainMenu,
-		ProfileMenu: ProfileMenu,
-		GameScreen: GameScreen
-	},
-	{
-		initialRouteName: "MainMenu",
-		headerMode: "none"
-	}
+    {
+        MainMenu: MainMenu,
+        ProfileMenu: ProfileMenu,
+        GameScreen: GameScreen
+    },
+    {
+        initialRouteName: "MainMenu",
+        headerMode: "none"
+    }
 );

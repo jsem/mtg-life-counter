@@ -17,36 +17,36 @@ import { globalStyles } from '../config/styles';
  */
 export default class ProfileSelector extends Component {
 
-	/**
-	 * Renders the profile selector buttons based on the number of players selected
-	 */
-	renderProfileButtons() {
-		var profileButtons = [];
-		for (var profileId in this.props.profiles) {
-			profileButtons.push(
-				<MenuItem 
-					key={"profile" + this.props.profile + "_item" + profileId}
-					containerStyle={
-						styles.itemNoMargin
-					}
-				>
-					<ProfileButton
-						key={"profile" + this.props.profile + "_item" + profileId + "_button"}
-						profile={{...this.props.profiles[profileId]}}
-						onPress={(element, profileNumber = this.props.profile, profileSelected = {...this.props.profiles[profileId]}) => {this.props.onSelect(profileNumber, profileSelected)}}
-					/>
-				</MenuItem>
-			)
-		}
-		return (
-			<View>
-				{profileButtons}
-			</View>
-		)
-	}
-	render () {
-		return (
-			<ScrollView 
+    /**
+     * Renders the profile selector buttons based on the number of players selected
+     */
+    renderProfileButtons() {
+        var profileButtons = [];
+        for (var profileId in this.props.profiles) {
+            profileButtons.push(
+                <MenuItem 
+                    key={"profile" + this.props.profile + "_item" + profileId}
+                    containerStyle={
+                        styles.itemNoMargin
+                    }
+                >
+                    <ProfileButton
+                        key={"profile" + this.props.profile + "_item" + profileId + "_button"}
+                        profile={{...this.props.profiles[profileId]}}
+                        onPress={(element, profileNumber = this.props.profile, profileSelected = {...this.props.profiles[profileId]}) => {this.props.onSelect(profileNumber, profileSelected)}}
+                    />
+                </MenuItem>
+            )
+        }
+        return (
+            <View>
+                {profileButtons}
+            </View>
+        )
+    }
+    render () {
+        return (
+            <ScrollView 
                 containerStyle={[
                     globalStyles.containerVertical, 
                     styles.container,
@@ -60,9 +60,9 @@ export default class ProfileSelector extends Component {
                 <MenuContent>
                     {this.renderProfileButtons()}
                 </MenuContent>
-			</ScrollView>
-		);
-	}
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

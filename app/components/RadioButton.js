@@ -102,8 +102,8 @@ export default class RadioButton extends Component {
         )
     }
 
-	render () {
-		return (
+    render () {
+        return (
             <View style={[
                 globalStyles.containerHorizontal,
                 styles.container,
@@ -111,8 +111,8 @@ export default class RadioButton extends Component {
             ]}>
                 {this.renderButtons()}
             </View>
-		);
-	}
+        );
+    }
 }
 
 const styles = StyleSheet.create({

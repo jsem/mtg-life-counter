@@ -61,9 +61,9 @@ export default class MenuHeader extends Component {
         }
     }
 
-	render () {
-		return (
-			<View style={[
+    render () {
+        return (
+            <View style={[
                 globalStyles.containerHorizontal, 
                 styles.container,
                 this.props.containerStyle
@@ -74,11 +74,11 @@ export default class MenuHeader extends Component {
                     this.props.buttonLeftStyle, 
                     this.props.iconLeftStyle
                 )}
-				<Text style={[
+                <Text style={[
                     globalStyles.textLarge, 
                     globalStyles.textCenter, 
                     styles.header, 
-                    this.props.textStlye
+                    this.props.textStyle
                 ]}>
                     {this.props.header}
                 </Text>
@@ -88,9 +88,9 @@ export default class MenuHeader extends Component {
                     this.props.buttonRightStyle, 
                     this.props.iconRightStyle
                 )}
-			</View>
-		);
-	}
+            </View>
+        );
+    }
 }
 
 const styles = ScaledSheet.create({

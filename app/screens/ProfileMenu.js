@@ -10,23 +10,23 @@ import { MenuContent, MenuHeader } from '../components/index';
  * Menu listing all profiles. Allows you to add, edit and delete profiles.
  */
 export default class ProfileMenu extends Component {
-	componentDidMount() {
-		Orientation.lockToPortrait();
-	}
+    componentDidMount() {
+        Orientation.lockToPortrait();
+    }
 
-	render () {
-		return (
-			<View style={globalStyles.containerScreenVertical}>
-				<MenuHeader 
-					header="Profiles"
+    render () {
+        return (
+            <View style={globalStyles.containerScreenVertical}>
+                <MenuHeader 
+                    header="Profiles"
                     iconLeft="chevron-left"
                     iconLeftStyle={globalStyles.text}
-					iconRight="plus"
-					pressLeft={() => {this.props.navigation.navigate('MainMenu')}}
-				/>
-				<MenuContent>
-				</MenuContent>
-			</View>
-		);
-	}
+                    iconRight="plus"
+                    pressLeft={() => {this.props.navigation.navigate('MainMenu')}}
+                />
+                <MenuContent>
+                </MenuContent>
+            </View>
+        );
+    }
 }

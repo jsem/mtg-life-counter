@@ -14,10 +14,10 @@ import { ScaledSheet } from 'react-native-size-matters';
  * value: the value of the input
  */
 export default class Input extends Component {
-	render () {
+    render () {
         const keyboardType = this.props.keyboardType != null && this.props.keyboardType != "" ? this.props.keyboardType : "default";
-		return (
-			<TextInput 
+        return (
+            <TextInput 
                 keyboardType={keyboardType}
                 onChangeText={this.props.onChange}
                 style={[
@@ -30,8 +30,8 @@ export default class Input extends Component {
                 underlineColorAndroid={colourInvisible}
                 value={this.props.value}
             />
-		);
-	}
+        );
+    }
 }
 
 const styles = ScaledSheet.create({

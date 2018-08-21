@@ -15,9 +15,9 @@ import { globalStyles } from '../config/styles';
  * iconStyle: custom styles for the icon (Text)
  */
 export default class IconButton extends Component {
-	render () {
-		return (
-			<TouchableOpacity 
+    render () {
+        return (
+            <TouchableOpacity 
                 onPress={this.props.onPress}
                 style={[
                     globalStyles.containerHorizontalCenter,
@@ -34,8 +34,8 @@ export default class IconButton extends Component {
                     ]
                 }/>
             </TouchableOpacity>
-		);
-	}
+        );
+    }
 }
 
 const styles = ScaledSheet.create({

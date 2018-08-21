@@ -9,20 +9,20 @@ import { globalStyles } from '../config/styles';
  * Game screen. Displays player areas for each player and a central menu
  */
 class GameScreen extends Component {
-	render () {
-		return (
-			<View style={globalStyles.containerScreenVertical}>
-			</View>
-		);
-	}
+    render () {
+        return (
+            <View style={globalStyles.containerScreenVertical}>
+            </View>
+        );
+    }
 }
 
 export default GameScreen = connect(
-	state => ({
-		game: state.game,
-		players: state.player
-	}),
-	dispatch => ({
-		
-	})
+    state => ({
+        game: state.game,
+        players: state.player
+    }),
+    dispatch => ({
+        
+    })
 )(GameScreen)
