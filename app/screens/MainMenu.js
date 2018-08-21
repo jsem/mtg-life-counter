@@ -42,15 +42,13 @@ class MainMenu extends Component {
      */
     setNumberPlayers(numberPlayers) {
         var profiles = this.state.profiles;
-        if (numberPlayers < this.state.profiles.length+1) {
+        if (numberPlayers < this.state.profiles.length) {
             var profiles = this.state.profiles.slice(0, numberPlayers);
-            this.setState({profiles: profiles});
-        } else if (numberPlayers > this.state.profiles.length+1) {
+        } else if (numberPlayers > this.state.profiles.length) {
             var profiles = this.state.profiles;
             for (var player = profiles.length; player < numberPlayers; player++) {
                 profiles.push(DEFAULT_PROFILE)
             }
-            this.setState({profiles: profiles});
         }
         this.setState({profiles: profiles, numberPlayers: numberPlayers});
     }
