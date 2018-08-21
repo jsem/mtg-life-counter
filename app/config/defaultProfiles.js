@@ -1,8 +1,10 @@
+import { colourDarkGrey, colourWhite } from "./colours";
+
 /**
  * The default player profile used when creating a new profile
  */
 export const DEFAULT_PROFILE = {
-    backgroundColour: '#000',
+    backgroundColour: colourDarkGrey,
     name: 'Player',
-    foregroundColour: '#FFF'
+    foregroundColour: colourWhite
 }

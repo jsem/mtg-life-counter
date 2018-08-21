@@ -1,17 +1,20 @@
-import React from 'react';
 import { createStackNavigator } from "react-navigation";
 
+import GameScreen from '../screens/GameScreen';
 import MainMenu from '../screens/MainMenu';
+import ProfileMenu from '../screens/ProfileMenu'
 
 /**
  * Navigator for the app
  */
 export const AppNavigator = createStackNavigator (
-	{
-		MainMenu: MainMenu
-	},
-	{
-		initialRouteName: "MainMenu",
-		headerMode: "none"
-	}
+    {
+        MainMenu: MainMenu,
+        ProfileMenu: ProfileMenu,
+        GameScreen: GameScreen
+    },
+    {
+        initialRouteName: "MainMenu",
+        headerMode: "none"
+    }
 );

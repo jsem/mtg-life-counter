@@ -1,4 +1,4 @@
-import { CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from '../actions/PlayerAction';
+import { CLEAR_PLAYERS, CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 
 export const initialState = {}
@@ -10,6 +10,9 @@ export const initialState = {}
  */
 export default function playerReducer(state = initialState, action) {
     switch (action.type) {
+        //clear the players and reset to the initial state
+        case CLEAR_PLAYERS:
+            return {...initialState};
         //add a new player to the players object. Use default profile if no profile is specified
         case CREATE_PLAYER:
             var newState = { ...state };

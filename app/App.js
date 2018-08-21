@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import KeepAwake from 'react-native-keep-awake';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
 
 import { AppNavigator } from './config/routes';
+import { globalStyles } from './config/styles';
+import reducer from './reducers';
+
+const store = createStore(reducer);
 
 /**
  * Main app class. Instantiates the navigation stack
  */
 export default class App extends Component {
-	render() {
-		return (
-			<View style={styles.container}>
-				<KeepAwake />
-				<AppNavigator style={styles.container}/>
-			</View>
-		);
-	}
+    render() {
+        return (
+            <Provider store={store}>
+                <View style={globalStyles.containerScreenVertical}>
+                    <KeepAwake />
+                    <AppNavigator style={globalStyles.containerScreenVertical}/>
+                </View>
+            </Provider>
+        );
+    }
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'stretch',
-		backgroundColor: '#F5FCFF',
-	}
-});

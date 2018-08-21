@@ -1,7 +1,15 @@
-import { CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from './PlayerAction';
-import { createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer } from './PlayerAction';
+import { CLEAR_PLAYERS, CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from './PlayerAction';
+import { clearPlayers, createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer } from './PlayerAction';
 
 describe('PlayerAction', () => {
+    it('clearPlayers action creator creates a CLEAR_PLAYERS action', () => {
+        expect(
+            clearPlayers()
+        ).toEqual({
+            type: CLEAR_PLAYERS
+        })
+    })
+
     it('createPlayer action creator creates a CREATE_PLAYER action', () => {
         expect(
             createPlayer(null, 20)
