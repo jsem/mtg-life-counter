@@ -43,9 +43,9 @@ class MainMenu extends Component {
     setNumberPlayers(numberPlayers) {
         var profiles = this.state.profiles;
         if (numberPlayers < this.state.profiles.length) {
-            var profiles = this.state.profiles.slice(0, numberPlayers);
+            profiles = this.state.profiles.slice(0, numberPlayers);
         } else if (numberPlayers > this.state.profiles.length) {
-            var profiles = this.state.profiles;
+            profiles = this.state.profiles;
             for (var player = profiles.length; player < numberPlayers; player++) {
                 profiles.push(DEFAULT_PROFILE)
             }
