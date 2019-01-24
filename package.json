@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-keep-awake": "^3.0.1",
@@ -16,7 +17,8 @@
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.2",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-multi": "^0.1.12"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
