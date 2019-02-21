@@ -3,13 +3,14 @@ import { View } from 'react-native';
 
 import KeepAwake from 'react-native-keep-awake';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
+import multi from 'redux-multi';
+import { createStore, applyMiddleware } from 'redux';
 
 import { AppNavigator } from './config/routes';
 import { globalStyles } from './config/styles';
 import reducer from './reducers';
 
-const store = createStore(reducer);
+const store = applyMiddleware(multi)(createStore)(reducer);
 
 /**
  * Main app class. Instantiates the navigation stack

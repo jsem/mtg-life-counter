@@ -59,6 +59,11 @@ export const globalStyles = ScaledSheet.create({
         padding: 0
     },
 
+    //rotated containers
+    containerRotate180: {
+        transform: [{rotate: '180deg'}]
+    },
+
     //text styles
     textSmall: {
         color: colourLightGrey,
