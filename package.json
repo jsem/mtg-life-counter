@@ -4,30 +4,31 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
-    "react": "16.3.1",
-    "react-native": "0.55.4",
-    "react-native-keep-awake": "^3.0.1",
+    "react": "16.8.3",
+    "react-native": "0.59.1",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-keep-awake": "^4.0.0",
     "react-native-orientation": "^3.1.3",
-    "react-native-size-matters": "^0.1.1",
-    "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^2.0.2",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
+    "react-native-size-matters": "^0.1.6",
+    "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "^3.5.1",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
     "redux-multi": "^0.1.12"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^22.4.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "^22.4.4",
-    "react-test-renderer": "16.3.1"
+    "@babel/core": "7.4.0",
+    "@babel/runtime": "7.4.2",
+    "@react-native-community/eslint-config": "0.0.3",
+    "babel-jest": "24.5.0",
+    "eslint": "5.15.3",
+    "jest": "24.5.0",
+    "metro-react-native-babel-preset": "0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
