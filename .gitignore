@@ -57,3 +57,6 @@ buck-out/
 
 # jest
 coverage/
+
+# custom
+debug.log

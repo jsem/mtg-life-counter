@@ -26,25 +26,25 @@ class GameScreen extends Component {
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
-                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor: 'red'}]}>
-                                <PlayerArea player="1"/>
+                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                                <PlayerArea player={0}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor:'orange'}]}>
-                                <PlayerArea player="2"/>
+                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                                <PlayerArea player={1}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor:'yellow'}]}>
-                                <PlayerArea player="3"/>
+                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                                <PlayerArea player={2}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
-                            <View style={[globalStyles.containerScreenVertical, {backgroundColor: 'purple'}]}>
-                                <PlayerArea player="6"/>
+                            <View style={[globalStyles.containerScreenVertical]}>
+                                <PlayerArea player={5}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, {backgroundColor:'blue'}]}>
-                                <PlayerArea player="5"/>
+                            <View style={[globalStyles.containerScreenVertical]}>
+                                <PlayerArea player={4}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, {backgroundColor:'green'}]}>
-                                <PlayerArea player="4"/>
+                            <View style={[globalStyles.containerScreenVertical]}>
+                                <PlayerArea player={3}/>
                             </View>
                         </View>
                     </View>
@@ -54,19 +54,19 @@ class GameScreen extends Component {
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
-                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor: 'red'}]}>
-                                <PlayerArea player="1"/>
+                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                                <PlayerArea player={0}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor:'yellow'}]}>
-                                <PlayerArea player="2"/>
+                            <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                                <PlayerArea player={1}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
-                            <View style={[globalStyles.containerScreenVertical, {backgroundColor:'blue'}]}>
-                                <PlayerArea player="4"/>
+                            <View style={[globalStyles.containerScreenVertical]}>
+                                <PlayerArea player={3}/>
                             </View>
-                            <View style={[globalStyles.containerScreenVertical, {backgroundColor:'green'}]}>
-                                <PlayerArea player="3"/>
+                            <View style={[globalStyles.containerScreenVertical]}>
+                                <PlayerArea player={2}/>
                             </View>
                         </View>
                     </View>
@@ -76,11 +76,11 @@ class GameScreen extends Component {
                 Orientation.lockToPortrait();
                 return (
                     <View style={globalStyles.containerScreenVertical}>
-                        <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180, {backgroundColor: 'blue'}]}>
-                            <PlayerArea player="1"/>
+                        <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
+                            <PlayerArea player={0}/>
                         </View>
-                        <View style={[globalStyles.containerScreenVertical, {backgroundColor:'red'}]}>
-                            <PlayerArea player="2"/>
+                        <View style={[globalStyles.containerScreenVertical]}>
+                            <PlayerArea player={1}/>
                         </View>
                     </View>
                 );
