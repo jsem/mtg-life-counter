@@ -8,12 +8,12 @@ npm install -g react-native-cli
 
 TO BUILD AND RUN:
 npm install
-react-native [run-ios|run-android]
+react-native start --reset-cache (to start bundler)
+react-native [run-ios|run-android] (to run app on device)
 
 SETUP NOTES:
 run the following to create from scratch:
 react-native init MTGLifeCounter
-npm install --save-dev babel-cli babel-preset-env babel-polyfill
 
 PROJECT STRUCTURE
 -android/
