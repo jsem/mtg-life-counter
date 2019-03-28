@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ScaledSheet } from 'react-native-size-matters';
 
+import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 import { IconButton } from '../components/index';
 import { globalStyles } from '../config/styles';
 
@@ -14,19 +15,19 @@ import { globalStyles } from '../config/styles';
  */
 class PlayerArea extends Component {
     render () {
-        const backgroundColour = this.props.players[this.props.player].backgroundColour;
-        const foregroundColour = this.props.players[this.props.player].foregroundColour;
-        //const playerName = this.props.players[this.props.player].name;
-        //const counterValue = this.props.players[this.props.player].life;
+        const backgroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].backgroundColour : DEFAULT_PROFILE.backgroundColour;
+        const foregroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].foregroundColour : DEFAULT_PROFILE.foregroundColour;
+        const playerName = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].name : DEFAULT_PROFILE.name;
+        const counterValue = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].life : 0;
         return (
             <View style={[styles.container, {backgroundColor: backgroundColour, borderColor: foregroundColour}]}>
                 <View style={styles.containerCounterValue}>
                     <Text style={[globalStyles.text, styles.textCounterValue, {color: foregroundColour}]}>
-                        {this.props.players[this.props.player].life}
+                        {counterValue}
                     </Text>
                 </View>
                 <Text style={[globalStyles.text, styles.textPlayerName, {color: foregroundColour}]}>
-                    {this.props.players[this.props.player].name}
+                    {playerName}
                 </Text>
                 <TouchableOpacity style={styles.buttonCounter}>
                     <Text style={[globalStyles.text, {color: foregroundColour}]}>-</Text>
@@ -105,6 +106,7 @@ const styles = ScaledSheet.create({
 
 export default PlayerArea = connect(
     state => ({
+        game: state.game,
         players: state.player
     }),
     dispatch => ({
