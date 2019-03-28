@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { BackHandler, View } from 'react-native';
 
 import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
@@ -17,6 +17,10 @@ class GameScreen extends Component {
 
     showMenu = () => {
         //TODO actually implement this
+    }
+
+    exitGame = () => {
+        this.props.navigation.state.params.onNavigateBack();
     }
 
     renderPlayerAreas = () => {
@@ -85,6 +89,14 @@ class GameScreen extends Component {
                     </View>
                 );
         }
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.exitGame);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.exitGame);
     }
     
     render () {
