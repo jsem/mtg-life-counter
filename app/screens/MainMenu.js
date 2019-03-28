@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
 
-import { startGame } from '../actions/GameAction';
+import { endGame, startGame } from '../actions/GameAction';
 import { createPlayer } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 import { colourDarkGrey, colourLightGrey } from '../config/colours';
@@ -115,8 +115,15 @@ class MainMenu extends Component {
         this.props.startGame(this.state.startingLife, this.state.numberPlayers, new Date());
         this.state.profiles.map(profile => {
             this.props.createPlayer(profile, this.state.startingLife);
-        })
-        this.props.navigation.navigate('GameScreen');
+        });
+        this.props.navigation.navigate('GameScreen', {
+            onNavigateBack: this.handleOnNavigateBack
+        });
+    }
+
+    handleOnNavigateBack = () => {
+        Orientation.lockToPortrait();
+        this.props.endGame();
     }
 
     componentDidMount() {
@@ -239,6 +246,7 @@ export default MainMenu = connect(
         profiles: state.profile
     }),
     dispatch => ({
+        endGame: () => {dispatch(endGame())},
         startGame: (startingLife, numberPlayers, timestamp) => {dispatch(startGame(startingLife, numberPlayers, timestamp))},
         createPlayer: (profile, startingLife) => {dispatch(createPlayer(profile, startingLife))}
     })
