@@ -43,6 +43,14 @@ export const globalStyles = ScaledSheet.create({
     },
 
     //centered containers
+    containerCentered: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        margin: 0,
+        padding: 0
+    },
+
     containerHorizontalCenter: {
         alignItems: 'center',
         flexDirection: 'row',
