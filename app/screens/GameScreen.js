@@ -88,6 +88,7 @@ class GameScreen extends Component {
     }
     
     render () {
+        console.log(this.props.game);
         return (
             <View style={globalStyles.containerScreenVertical}>
                 {this.renderPlayerAreas()}

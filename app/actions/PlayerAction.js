@@ -1,3 +1,7 @@
+import moment from 'moment';
+
+import { addHistory } from './GameAction';
+
 export const CLEAR_PLAYERS = 'CLEAR_PLAYERS';
 export const CREATE_PLAYER = 'CREATE_PLAYER';
 export const UPDATE_LIFE = 'UPDATE_LIFE';
@@ -20,12 +24,15 @@ export function clearPlayers() {
  * @param {*} profile a profile to apply to the player (nullable)
  * @param {*} startingLife the starting life total for the player
  */
-export function createPlayer(profile, startingLife) {
-    return {
-        type: CREATE_PLAYER,
-        profile: profile,
-        startingLife: startingLife
-    }
+export function createPlayer(profile, startingLife, id = null) {
+    return [
+        {
+            type: CREATE_PLAYER,
+            profile: profile,
+            startingLife: startingLife
+        },
+        addHistory(moment(), id, PLAYER_ENTERED_GAME(profile.name, startingLife))
+    ]
 }
 
 /**

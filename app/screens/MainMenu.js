@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { startGame } from '../actions/GameAction';
 import { createPlayer } from '../actions/PlayerAction';
@@ -112,10 +113,7 @@ class MainMenu extends Component {
      * Creates the game and player objects, then navigates to the game screen
      */
     startGame() {
-        this.props.startGame(this.state.startingLife, this.state.numberPlayers, new Date());
-        this.state.profiles.map(profile => {
-            this.props.createPlayer(profile, this.state.startingLife);
-        })
+        this.props.startGame(this.state.startingLife, this.state.numberPlayers, moment(), this.state.profiles);
         this.props.navigation.navigate('GameScreen');
     }
 
