@@ -4,6 +4,7 @@ export const UPDATE_LIFE = 'UPDATE_LIFE';
 export const UPDATE_POISON = 'UPDATE_POISON';
 export const UPDATE_COMMANDER_TAX = 'UPDATE_COMMANDER_TAX';
 export const UPDATE_COMMANDER_DAMAGE = 'UPDATE_COMMANDER_DAMAGE';
+export const UPDATE_CURRENT_COUNTER = 'UPDATE_CURRENT_COUNTER';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 /**
@@ -78,6 +79,14 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
         type: UPDATE_COMMANDER_DAMAGE,
         playerId: playerId,
         opposingPlayerId: opposingPlayerId,
+        amount: amount
+    }
+}
+
+export function updateCurrentCounter(playerId, amount) {
+    return {
+        type: UPDATE_CURRENT_COUNTER,
+        playerId: playerId,
         amount: amount
     }
 }

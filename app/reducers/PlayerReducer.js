@@ -1,4 +1,4 @@
-import { CLEAR_PLAYERS, CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_PLAYER } from '../actions/PlayerAction';
+import { CLEAR_PLAYERS, CREATE_PLAYER, UPDATE_LIFE, UPDATE_POISON, UPDATE_COMMANDER_TAX, UPDATE_COMMANDER_DAMAGE, UPDATE_CURRENT_COUNTER, UPDATE_PLAYER } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 
 export const initialState = {}
@@ -26,6 +26,7 @@ export default function playerReducer(state = initialState, action) {
                 poison: 0,
                 commanderTax: 0,
                 commanderDamage: {},
+                currentCounter: 0,
                 ...profile
             }
             return newState;
@@ -64,6 +65,13 @@ export default function playerReducer(state = initialState, action) {
             } else {
                 newState[action.playerId].commanderDamage[action.opposingPlayerId] += action.amount;
             }
+            return newState;
+        case UPDATE_CURRENT_COUNTER:
+            var newState = { ...state };
+            if(action.playerId == null || (action.playerId in newState) == false)  {
+                return state;
+            }
+            newState[action.playerId].currentCounter = action.amount;
             return newState;
         //update player customisations from player menu for specified player. playerId cannot equal null
         case UPDATE_PLAYER:
