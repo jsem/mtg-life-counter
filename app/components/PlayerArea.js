@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { ScaledSheet } from 'react-native-size-matters';
 
-import ProfileMenu from '../components/ProfileMenu';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 import { IconButton } from '../components/index';
 import { globalStyles } from '../config/styles';
 import { addHistory } from '../actions/GameAction';
 import { updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updateCurrentCounter } from '../actions/PlayerAction';
+import { PROFILE_MENU_UPDATE, PROFILE_SCREEN_STANDALONE } from '../screens/ProfileScreen';
 
-const ICON_HEALTH = "heart";
-const ICON_POISON = "skull-crossbones";
-const ICON_COMMANDER_TAX = "balance-scale";
-const ICON_COMMANDER_DAMAGE_ONE = "dice-one";
-const ICON_COMMANDER_DAMAGE_TWO = "dice-two";
-const ICON_COMMANDER_DAMAGE_THREE = "dice-three";
-const ICON_COMMANDER_DAMAGE_FOUR = "dice-four";
-const ICON_COMMANDER_DAMAGE_FIVE = "dice-five";
-const ICON_COMMANDER_DAMAGE_SIX = "dice-six";
-const ICON_ERROR = "exclamation-triangle";
-const MENU_SHOW = 'MENU_SHOW';
-const MENU_HIDE = 'MENU_HIDE';
-const MENU_HIDDEN = 'MENU_HIDDEN';
-const MENU_SHOWN = 'MENU_SHOWN';
-const MENU_TOGGLE_TIMEOUT = 100;
+const ICON_HEALTH = 'heart';
+const ICON_POISON = 'skull-crossbones';
+const ICON_COMMANDER_TAX = 'balance-scale';
+const ICON_COMMANDER_DAMAGE_ONE = 'dice-one';
+const ICON_COMMANDER_DAMAGE_TWO = 'dice-two';
+const ICON_COMMANDER_DAMAGE_THREE = 'dice-three';
+const ICON_COMMANDER_DAMAGE_FOUR = 'dice-four';
+const ICON_COMMANDER_DAMAGE_FIVE = 'dice-five';
+const ICON_COMMANDER_DAMAGE_SIX = 'dice-six';
+const ICON_ERROR = 'exclamation-triangle';
 
 /**
  * Component that displays player information
@@ -34,52 +29,6 @@ const MENU_TOGGLE_TIMEOUT = 100;
  * player: temp prop for display debugging
  */
 class PlayerArea extends Component {
-    constructor(props) {
-        super(props);
-
-        let {height, width} = Dimensions.get('window');
-        let transitionSize = height > width ? Math.ceil(height) : Math.ceil(width);
-
-        this.state = {
-            menuState: MENU_HIDDEN,
-            menuTransition: new Animated.Value(0),
-            transitionSize: transitionSize
-        }
-    }
-
-    showMenu = () => {
-        if (this.state.menuState === MENU_HIDDEN) {
-            this.setState({menuState: MENU_SHOW});
-            this.state.menuTransition.setValue(0);
-            Animated.timing(
-                this.state.menuTransition, {
-                    toValue: this.state.transitionSize,
-                    duration: MENU_TOGGLE_TIMEOUT,
-                }
-            ).start(() => {this.setState({menuState: MENU_SHOWN})});
-        }
-    }
-
-    hideMenu = () => {
-        if (this.state.menuState === MENU_SHOWN) {
-            this.setState({menuState: MENU_HIDE});
-            this.state.menuTransition.setValue(this.state.transitionSize);
-            Animated.timing(
-                this.state.menuTransition, {
-                    toValue: 0,
-                    duration: MENU_TOGGLE_TIMEOUT,
-                }
-            ).start(() => {this.setState({menuState: MENU_HIDDEN})});
-        }
-    }
-
-    toggleMenu = () => {
-        if (this.state.menuState === MENU_HIDDEN) {
-            this.showMenu();
-        } else if (this.state.menuState === MENU_SHOWN) {
-            this.hideMenu();
-        }
-    }
 
     changeCurrentCounter () {
         this.props.players[this.props.player].currentCounter >= (2 + (this.props.game.numberPlayers)-1) ? this.props.updateCurrentCounter(this.props.player, 0) : this.props.updateCurrentCounter(this.props.player, (this.props.players[this.props.player].currentCounter+1));
@@ -146,7 +95,7 @@ class PlayerArea extends Component {
     }
 
     profileMenu() {
-        // To do
+        this.props.navigation.navigate('ProfileScreen', {player: this.props.player, menuType: PROFILE_MENU_UPDATE, screenType: PROFILE_SCREEN_STANDALONE});
     }
 
     render () {
@@ -193,62 +142,44 @@ class PlayerArea extends Component {
             }
         }
         return (
-            this.state.menuState === MENU_HIDDEN ? 
-                <View style={[styles.containerMain, {backgroundColor: backgroundColour, borderColor: foregroundColour, backgroundImage: backgroundImage}]}>
-                    <View style={styles.containerCounterValue}>
-                        <Text style={[globalStyles.text, styles.textCounterValue, {color: foregroundColour}]}>
-                            {counterValue}
-                        </Text>
-                    </View>
-                    <Text style={[globalStyles.text, styles.textPlayerName, {color: foregroundColour}]}>
-                        {playerName}
+            <View style={[styles.containerMain, {backgroundColor: backgroundColour, borderColor: foregroundColour, backgroundImage: backgroundImage}]}>
+                <View style={styles.containerCounterValue}>
+                    <Text style={[globalStyles.text, styles.textCounterValue, {color: foregroundColour}]}>
+                        {counterValue}
                     </Text>
-                    <TouchableOpacity style={styles.buttonCounter}>
-                        <IconButton
-                            icon="minus"
-                            iconStyle={{color: foregroundColour}}
-                            onPress={() => {this.changeCounterValue(-1)}}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCounter}>
-                        <IconButton
-                            icon="plus"
-                            iconStyle={{color: foregroundColour}}
-                            onPress={() => {this.changeCounterValue(1)}}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonMenu}>
-                        <IconButton
-                            icon="cog"
-                            iconStyle={{color: foregroundColour}}
-                            onPress={() => {this.toggleMenu()}}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCounterType}>
-                        <IconButton
-                            icon={iconName}
-                            iconStyle={{color: foregroundColour, }}
-                            onPress={() => {this.changeCurrentCounter()}}
-                        />
-                    </TouchableOpacity>
                 </View>
-            : this.state.menuState === MENU_SHOWN ? 
-                <ProfileMenu
-                    player={this.props.player}
-                    close={this.toggleMenu}
-                />
-            : this.state.menuState === MENU_SHOW || this.state.menuState === MENU_HIDE ? 
-                <Animated.View 
-                    style={[
-                        styles.containerMenuTransition,
-                        {
-                            height: this.state.menuTransition,
-                            width: this.state.menuTransition
-                        }
-                    ]}
-                />
-            :
-                null
+                <Text style={[globalStyles.text, styles.textPlayerName, {color: foregroundColour}]}>
+                    {playerName}
+                </Text>
+                <TouchableOpacity style={styles.buttonCounter} onPress={() => {this.changeCounterValue(-1)}}>
+                    <IconButton
+                        icon="minus"
+                        iconStyle={{color: foregroundColour}}
+                        onPress={() => {this.changeCounterValue(-1)}}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonCounter} onPress={() => {this.changeCounterValue(1)}}>
+                    <IconButton
+                        icon="plus"
+                        iconStyle={{color: foregroundColour}}
+                        onPress={() => {this.changeCounterValue(1)}}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonMenu} onPress={() => {this.profileMenu}}>
+                    <IconButton
+                        icon="cog"
+                        iconStyle={{color: foregroundColour}}
+                        onPress={() => {this.profileMenu}}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonCounterType} onPress={() => {this.changeCurrentCounter}}>
+                    <IconButton
+                        icon={iconName}
+                        iconStyle={{color: foregroundColour, }}
+                        onPress={() => {this.changeCurrentCounter}}
+                    />
+                </TouchableOpacity>
+            </View>
         );
     }
 }

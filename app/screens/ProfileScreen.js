@@ -1,37 +1,63 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { BackHandler, Text, TouchableOpacity, View } from 'react-native';
 
 import moment from 'moment';
+import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
 import { ScaledSheet } from 'react-native-size-matters';
+import { ColorWheel } from 'react-native-color-wheel';
 
 import { addHistory } from '../actions/GameAction';
 import { updatePlayer } from '../actions/PlayerAction';
 import { globalStyles } from '../config/styles';
 import { Input, MenuContent, MenuItem } from '../components/index';
-import { colourBlue, colourDarkGrey, colourGreen, colourLightBlue, colourLightGrey, colourOrange, colourPink, colourPurple, colourRed, colourYellow } from '../config/colours';
+import { colourDarkGrey, colourLightGrey, colourInvisible } from '../config/colours';
 
-class ProfileMenu extends Component {
+const PROFILE_MENU_UPDATE = 'UPDATE';
+const PROFILE_MENU_SAVE = 'SAVE';
+
+class ProfileScreen extends Component {
     constructor(props) {
         super(props);
     
-        let name = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].name : DEFAULT_PROFILE.name;
-        let foregroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].foregroundColour : DEFAULT_PROFILE.foregroundColour;
-        let backgroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].backgroundColour : DEFAULT_PROFILE.backgroundColour;
-        let backgroundImage = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[this.props.player].backgroundImage : DEFAULT_PROFILE.backgroundImage;
+        let menuType = this.props.navigation.getParam('menuType') === PROFILE_MENU_UPDATE || this.props.navigation.getParam('menuType') === PROFILE_MENU_SAVE ? this.props.navigation.getParam('menuType') : PROFILE_MENU_UPDATE;
+
+        let playerId ="";
+        let name = "";
+        let foregroundColour = "";
+        let backgroundColour = "";
+        let backgroundImage = "";
+
+        switch(menuType) {
+            case PROFILE_MENU_UPDATE:
+                playerId = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.navigation.getParam('player') : 0;
+                name = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[playerId].name : DEFAULT_PROFILE.name;
+                foregroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[playerId].foregroundColour : DEFAULT_PROFILE.foregroundColour;
+                backgroundColour = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[playerId].backgroundColour : DEFAULT_PROFILE.backgroundColour;
+                backgroundImage = Object.keys(this.props.players).length >= this.props.game.numberPlayers ? this.props.players[playerId].backgroundImage : DEFAULT_PROFILE.backgroundImage;
+                break;
+            case PROFILE_MENU_SAVE:
+                //To do
+                break;
+        }
 
         this.state = {
+            playerId: playerId,
             name: name,
             foregroundColour: foregroundColour,
             backgroundColour: backgroundColour,
-            backgroundImage: backgroundImage
+            backgroundImage: backgroundImage,
+            menuType: menuType,
         }
 
         this.setName = this.setName.bind(this);
         this.setForegroundColour = this.setForegroundColour.bind(this);
         this.setBackgroundColour = this.setBackgroundColour.bind(this);
         this.setBackgroundImage = this.setBackgroundImage.bind(this);
+        this.updateValues = this.updateValues.bind(this);
         this.updatePlayerValues = this.updatePlayerValues.bind(this);
+        this.close = this.close.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     setName(newName) {
@@ -50,13 +76,41 @@ class ProfileMenu extends Component {
         this.setState({backgroundImage: newImage});
     }
 
+    updateValues() {
+        switch (this.state.menuType) {
+            case PROFILE_MENU_SAVE:
+                this.saveProfile();
+                break;
+            case PROFILE_MENU_UPDATE:
+                this.updatePlayerValues();
+                break;
+        }
+    }
+
     updatePlayerValues() {
         let name = this.state.name === undefined || this.state.name === null ? "" : this.state.name;
         let foregroundColour = this.state.foregroundColour === undefined || this.state.foregroundColour === null ? "" : this.state.foregroundColour;
         let backgroundColour = this.state.backgroundColour === undefined || this.state.backgroundColour === null ? "" : this.state.backgroundColour;
         let backgroundImage = this.state.backgroundImage === undefined || this.state.backgroundImage === null ? "" : this.state.backgroundImage;
-        this.props.players[this.props.player].name !== name ? this.props.addHistory(moment(), this.props.player, this.props.players[this.props.player].name + " (ID " + this.props.players[this.props.player].playerId + ") changed name to " + name) : null;
-        this.props.updatePlayer(this.props.player, name, foregroundColour, backgroundColour, backgroundImage);
+        this.props.players[this.state.playerId].name !== name ? this.props.addHistory(moment(), this.state.playerId, this.props.players[this.state.playerId].name + " (ID " + this.props.players[this.state.playerId].playerId + ") changed name to " + name) : null;
+        this.props.updatePlayer(this.state.playerId, name, foregroundColour, backgroundColour, backgroundImage);
+    }
+
+    saveProfile() {
+        //To do
+    }
+
+    close() {
+        this.props.navigation.goBack();
+    }
+
+    componentDidMount() {
+        Orientation.lockToLandscape();
+        BackHandler.addEventListener('hardwareBackPress', this.props.navigation.goBack);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.props.navigation.goBack);
     }
 
     render() {
@@ -66,8 +120,8 @@ class ProfileMenu extends Component {
         let backgroundImage = this.state.backgroundImage === undefined || this.state.backgroundImage === null ? "" : this.state.backgroundImage;
         return (
             <View style={[styles.containerMain, {backgroundColor: backgroundColour, borderColor: foregroundColour, backgroundImage: backgroundImage}]}>
-                <MenuContent>
-                    <MenuItem label="Player Name" containerLabelStyle={[{backgroundColor: backgroundColour, foregroundColor: foregroundColour}]}>
+                <MenuContent style={[{backgroundColor: colourInvisible}]}>
+                    <MenuItem label="Player Name" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <Input
                             keyboardType="default"
                             onChange={this.setName}
@@ -82,7 +136,7 @@ class ProfileMenu extends Component {
                             value={name.toString()}
                         />
                     </MenuItem>
-                    <MenuItem label="Foreground Colour">
+                    <MenuItem label="Foreground Colour" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <Input
                             keyboardType="default"
                             onChange={this.setForegroundColour}
@@ -97,7 +151,7 @@ class ProfileMenu extends Component {
                             value={foregroundColour.toString()}
                         />
                     </MenuItem>
-                    <MenuItem label="Background Colour">
+                    <MenuItem label="Background Colour" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <Input
                             keyboardType="default"
                             onChange={this.setBackgroundColour}
@@ -112,7 +166,7 @@ class ProfileMenu extends Component {
                             value={backgroundColour.toString()}
                         />
                     </MenuItem>
-                    <MenuItem label="Background Image">
+                    <MenuItem label="Background Image" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <Input
                             keyboardType="default"
                             onChange={this.setBackgroundImage}
@@ -127,9 +181,9 @@ class ProfileMenu extends Component {
                             value={backgroundImage.toString()}
                         />
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <TouchableOpacity 
-                            onPress={this.updatePlayerValues}
+                            onPress={this.updateValues}
                             style={[
                                 globalStyles.containerHorizontalCenter,
                                 styles.button
@@ -140,13 +194,13 @@ class ProfileMenu extends Component {
                                 globalStyles.textCenter,
                                 styles.text
                             ]}>
-                                UPDATE
+                                {this.state.menuType}
                             </Text>
                         </TouchableOpacity>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible}]}>
                         <TouchableOpacity 
-                            onPress={this.props.close}
+                            onPress={this.close}
                             style={[
                                 globalStyles.containerHorizontalCenter,
                                 styles.button
@@ -225,7 +279,7 @@ const styles = ScaledSheet.create({
     }
 })
 
-export default ProfileMenu = connect(
+export default ProfileScreen = connect(
     state => ({
         game: state.game,
         players: state.player
@@ -234,4 +288,4 @@ export default ProfileMenu = connect(
         addHistory: (timestamp, playerId, note) => {dispatch(addHistory(timestamp, playerId, note))},
         updatePlayer: (playerId, name, foregroundColour, backgroundColour, backgroundImage) => {dispatch(updatePlayer(playerId, name, foregroundColour, backgroundColour, backgroundImage))}
     })
-)(ProfileMenu)
+)(ProfileScreen)

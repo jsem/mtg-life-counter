@@ -13,6 +13,7 @@ import IconButton from '../components/IconButton';
 import PlayerArea from '../components/PlayerArea';
 import { colourGrey } from '../config/colours';
 import { globalStyles } from '../config/styles';
+import { PROFILE_MENU_UPDATE, PROFILE_SCREEN_STANDALONE } from '../screens/ProfileScreen';
 
 const MENU_SHOW = 'MENU_SHOW';
 const MENU_HIDE = 'MENU_HIDE';
@@ -103,24 +104,24 @@ class GameScreen extends Component {
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={0}/>
+                                <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={1}/>
+                                <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={2}/>
+                                <PlayerArea player={2} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={5}/>
+                                <PlayerArea player={5} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={4}/>
+                                <PlayerArea player={4} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={3}/>
+                                <PlayerArea player={3} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                         </View>
                     </View>
@@ -131,18 +132,18 @@ class GameScreen extends Component {
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={0}/>
+                                <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={1}/>
+                                <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={3}/>
+                                <PlayerArea player={3} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={2}/>
+                                <PlayerArea player={2} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                             </View>
                         </View>
                     </View>
@@ -153,14 +154,18 @@ class GameScreen extends Component {
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                            <PlayerArea player={0}/>
+                            <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                         </View>
                         <View style={[globalStyles.containerScreenVertical]}>
-                            <PlayerArea player={1}/>
+                            <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
                         </View>
                     </View>
                 );
         }
+    }
+
+    openProfileScreen(playerId) {
+        this.props.navigation.navigate('ProfileScreen', {player: playerId, menuType: PROFILE_MENU_UPDATE, screenType: PROFILE_SCREEN_STANDALONE});
     }
 
     componentDidMount() {
