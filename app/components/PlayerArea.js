@@ -165,18 +165,18 @@ class PlayerArea extends Component {
                         onPress={() => {this.changeCounterValue(1)}}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonMenu} onPress={() => {this.profileMenu}}>
+                <TouchableOpacity style={styles.buttonMenu} onPress={() => {this.profileMenu()}}>
                     <IconButton
                         icon="cog"
                         iconStyle={{color: foregroundColour}}
-                        onPress={() => {this.profileMenu}}
+                        onPress={() => {this.profileMenu()}}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonCounterType} onPress={() => {this.changeCurrentCounter}}>
+                <TouchableOpacity style={styles.buttonCounterType} onPress={() => {this.changeCurrentCounter()}}>
                     <IconButton
                         icon={iconName}
                         iconStyle={{color: foregroundColour, }}
-                        onPress={() => {this.changeCurrentCounter}}
+                        onPress={() => {this.changeCurrentCounter()}}
                     />
                 </TouchableOpacity>
             </View>
