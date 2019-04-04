@@ -5,14 +5,16 @@ import moment from 'moment';
 import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
 import { ScaledSheet } from 'react-native-size-matters';
-import { HueSlider, SaturationSlider, LightnessSlider} from 'react-native-color';
+import { HueSlider, SaturationSlider, LightnessSlider } from 'react-native-color';
 import tinyColor from 'tinycolor2';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import { addHistory } from '../actions/GameAction';
 import { updatePlayer } from '../actions/PlayerAction';
 import { globalStyles } from '../config/styles';
 import { Input, MenuContent, MenuItem } from '../components/index';
 import { colourDarkGrey, colourLightGrey, colourInvisible } from '../config/colours';
+import { throwStatement } from '@babel/types';
 
 const PROFILE_MENU_UPDATE = 'UPDATE';
 const PROFILE_MENU_SAVE = 'SAVE';
@@ -49,16 +51,20 @@ class ProfileScreen extends Component {
             backgroundColour: backgroundColour,
             backgroundImage: backgroundImage,
             menuType: menuType,
+            selectedOption: 'Player Name'
         }
 
         this.setName = this.setName.bind(this);
         this.setForegroundColour = this.setForegroundColour.bind(this);
         this.setBackgroundColour = this.setBackgroundColour.bind(this);
         this.setBackgroundImage = this.setBackgroundImage.bind(this);
+        this.setSelectedOption = this.setSelectedOption.bind(this);
         this.updateValues = this.updateValues.bind(this);
         this.updatePlayerValues = this.updatePlayerValues.bind(this);
         this.close = this.close.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.getComponentsForRendering = this.getComponentsForRendering.bind(this);
+        this.renderInputComponent = this.renderInputComponent.bind(this);
     }
 
     setName(newName) {
@@ -75,6 +81,10 @@ class ProfileScreen extends Component {
 
     setBackgroundImage(newImage) {
         this.setState({backgroundImage: newImage});
+    }
+
+    setSelectedOption = (idx, value) => {
+        this.setState({selectedOption: value});
     }
 
     updateValues() {
@@ -121,145 +131,200 @@ class ProfileScreen extends Component {
     updateBackgroundSaturation = s => this.setState({ backgroundColour: {...this.state.backgroundColour, s } });
     updateBackgroundLightness = l => this.setState({ backgroundColour: {...this.state.backgroundColour, l } });
 
-    render() {
+    getComponentsForRendering() {
         let name = this.state.name === undefined || this.state.name === null ? "" : this.state.name;
         let foregroundColour = this.state.foregroundColour === undefined || this.state.foregroundColour === null ? "" : tinyColor(this.state.foregroundColour).toHslString();
         let backgroundColour = this.state.backgroundColour === undefined || this.state.backgroundColour === null ? "" : tinyColor(this.state.backgroundColour).toHslString();
         let backgroundImage = this.state.backgroundImage === undefined || this.state.backgroundImage === null ? "" : this.state.backgroundImage;
-        return (
-            <View style={[styles.containerMain, {backgroundColor: backgroundColour, borderColor: foregroundColour, backgroundImage: backgroundImage}]}>
-                <MenuContent style={[{backgroundColor: colourInvisible}]}>
-                    <MenuItem label="Player Name" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
+        return {
+            name: name,
+            foregroundColour: foregroundColour,
+            backgroundColour: backgroundColour,
+            backgroundImage: backgroundImage
+        }
+    }
+
+    renderInputComponent(selectedOption) {
+        components = this.getComponentsForRendering();
+        switch (selectedOption) {
+            case 'Player Name':
+                return(
+                    <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColour}]}>
                         <Input
                             keyboardType="default"
                             onChange={this.setName}
                             style={[
                                 styles.textInput,
                                 {
-                                    color: foregroundColour,
-                                    backgroundColor: backgroundColour,
-                                    borderColor: foregroundColour
+                                    color: components.foregroundColour,
+                                    backgroundColor: tinyColor({...this.state.backgroundColour, a: .3}).toHslString(),
+                                    borderColor: components.foregroundColour,
+                                    borderWidth: 2,
+                                    flex: 1
                                 }
                             ]}
-                            value={name.toString()}
+                            value={components.name.toString()}
                         />
-                    </MenuItem>
-                    <MenuItem label="Foreground Colour" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
+                        <View style={{flex: 5}}/>
+                    </View>
+                )
+            case 'Foreground Colour':
+                return(
+                    <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColour}]}>
                         <Text style={[
-                            globalStyles.containerHorizontalCenter, 
                             globalStyles.text,
-                            globalStyles.textCenter,
+                            globalStyles.textLeft,
                             {
-                                color: foregroundColour
+                                color: components.foregroundColour
                             }
                         ]}>
-                            {foregroundColour}
+                            {components.foregroundColour}
                         </Text>
-                    </MenuItem>
-                    <HueSlider
-                        style={styles.sliderRow}
-                        gradientSteps={40}
-                        value={this.state.foregroundColour.h}
-                        onValueChange={this.updateForegroundHue}
-                    />
-                    <SaturationSlider
-                        style={styles.sliderRow}
-                        gradientSteps={20}
-                        value={this.state.foregroundColour.s}
-                        color={this.state.foregroundColour}
-                        onValueChange={this.updateForegroundSaturation}
-                    />
-                    <LightnessSlider
-                        style={styles.sliderRow}
-                        gradientSteps={20}
-                        value={this.state.foregroundColour.l}
-                        color={this.state.foregroundColour}
-                        onValueChange={this.updateForegroundLightness}
-                    />
-                    <MenuItem label="Background Colour" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
-                        <Text style={[
-                            globalStyles.containerHorizontalCenter, 
-                            globalStyles.text,
-                            globalStyles.textCenter,
-                            {
-                                color: foregroundColour
-                            }
-                        ]}>
-                            {backgroundColour}
-                        </Text>
-                    </MenuItem>
-                    <View style={[{backgroundColor: tinyColor({...this.state.foregroundColour, a: .3}).toHslString()}]}>
                         <HueSlider
                             style={styles.sliderRow}
                             gradientSteps={40}
-                            value={this.state.backgroundColour.h}
-                            onValueChange={this.updateBackgroundHue}
+                            value={this.state.foregroundColour.h}
+                            onValueChange={this.updateForegroundHue}
                         />
                         <SaturationSlider
                             style={styles.sliderRow}
                             gradientSteps={20}
-                            value={this.state.backgroundColour.s}
-                            color={this.state.backgroundColour}
-                            onValueChange={this.updateBackgroundSaturation}
+                            value={this.state.foregroundColour.s}
+                            color={this.state.foregroundColour}
+                            onValueChange={this.updateForegroundSaturation}
                         />
                         <LightnessSlider
                             style={styles.sliderRow}
                             gradientSteps={20}
-                            value={this.state.backgroundColour.l}
-                            color={this.state.backgroundColour}
-                            onValueChange={this.updateBackgroundLightness}
+                            value={this.state.foregroundColour.l}
+                            color={this.state.foregroundColour}
+                            onValueChange={this.updateForegroundLightness}
                         />
                     </View>
-                    <MenuItem label="Background Image" containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
-                        <Input
-                            keyboardType="default"
-                            onChange={this.setBackgroundImage}
-                            style={[
-                                styles.textInput,
-                                {
-                                    color: foregroundColour,
-                                    backgroundColor: backgroundColour,
-                                    borderColor: foregroundColour
-                                }
-                            ]}
-                            value={backgroundImage.toString()}
-                        />
-                    </MenuItem>
-                    <MenuItem containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
-                        <TouchableOpacity 
-                            onPress={this.updateValues}
-                            style={[
-                                globalStyles.containerHorizontalCenter,
-                                styles.button
-                            ]}
-                        >
-                            <Text style={[
-                                globalStyles.text,
-                                globalStyles.textCenter,
-                                styles.text
-                            ]}>
-                                {this.state.menuType}
-                            </Text>
-                        </TouchableOpacity>
-                    </MenuItem>
-                    <MenuItem containerStyle={[{backgroundColor: colourInvisible}]} containerContentStyle={[{backgroundColor: colourInvisible}]} containerLabelStyle={[{backgroundColor: colourInvisible, foregroundColor: foregroundColour}]} labelStyle={[{backgroundColor: colourInvisible, color: foregroundColour}]}>
-                        <TouchableOpacity 
-                            onPress={this.close}
-                            style={[
-                                globalStyles.containerHorizontalCenter,
-                                styles.button
-                            ]}
-                        >
-                            <Text style={[
-                                globalStyles.text,
-                                globalStyles.textCenter,
-                                styles.text
-                            ]}>
-                                CLOSE
-                            </Text>
-                        </TouchableOpacity>
-                    </MenuItem>
-                </MenuContent>
+                )
+            case 'Background Colour':
+                return(
+                    <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColour}]}>
+                        <Text style={[
+                            globalStyles.text,
+                            globalStyles.textLeft,
+                            {
+                                color: components.backgroundColour,
+                                backgroundColor: tinyColor({...this.state.foregroundColour, a: .3}).toHslString()
+                            }
+                        ]}>
+                            {components.backgroundColour}
+                        </Text>
+                        <View style={{backgroundColor: tinyColor({...this.state.foregroundColour, a: .3}).toHslString()}}>
+                            <HueSlider
+                                style={styles.sliderRow}
+                                gradientSteps={40}
+                                value={this.state.backgroundColour.h}
+                                onValueChange={this.updateBackgroundHue}
+                            />
+                            <SaturationSlider
+                                style={styles.sliderRow}
+                                gradientSteps={20}
+                                value={this.state.backgroundColour.s}
+                                color={this.state.backgroundColour}
+                                onValueChange={this.updateBackgroundSaturation}
+                            />
+                            <LightnessSlider
+                                style={styles.sliderRow}
+                                gradientSteps={20}
+                                value={this.state.backgroundColour.l}
+                                color={this.state.backgroundColour}
+                                onValueChange={this.updateBackgroundLightness}
+                            />
+                        </View>
+                    </View>
+                )
+            case 'Background Image':
+                return(
+                    <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColour}]}>
+                        
+                    </View>
+                )
+            default:
+                return null;
+        }
+    }
+
+    render() {
+        components = this.getComponentsForRendering();
+        selectedComponent = this.renderInputComponent(this.state.selectedOption);
+        return (
+            <View style={[styles.containerMain, {backgroundColor: components.backgroundColour, borderColor: components.foregroundColour, backgroundImage: components.backgroundImage}]}>
+                <View style={[styles.containerHeader, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColor}]}>
+                    <ModalDropdown
+                        defaultValue={this.state.selectedOption}
+                        options={['Player Name','Foreground Colour','Background Colour','Background Image','None']}
+                        textStyle={[
+                            globalStyles.textLarge,
+                            {
+                                color: components.foregroundColour
+                            }
+                        ]}
+                        dropdownTextStyle={[
+                            globalStyles.textLarge,
+                            {
+                                color: components.foregroundColour,
+                                backgroundColor: components.backgroundColour,
+                                borderWidth: .2,
+                                borderColor: components.foregroundColour
+                            }
+                        ]}
+                        dropdownTextHighlightStyle={[
+                            globalStyles.textLarge,
+                            {
+                                color: components.foregroundColour,
+                                backgroundColor: components.backgroundColour,
+                                borderWidth: .2,
+                                borderColor: components.foregroundColour
+                            }
+                        ]}
+                        dropdownStyle={{
+                            borderWidth: 2,
+                            borderColor: components.foregroundColour,
+                        }}
+                        onSelect={(idx, value) => this.setSelectedOption(idx, value)}
+                    />
+                </View>
+                <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColor}]}>
+                    {selectedComponent}
+                </View>
+                <View style={[styles.containerButtons, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColor}]}>
+                    <TouchableOpacity 
+                        onPress={this.updateValues}
+                        style={[
+                            globalStyles.containerHorizontalCenter,
+                            styles.button
+                        ]}
+                    >
+                        <Text style={[
+                            globalStyles.text,
+                            globalStyles.textCenter,
+                            styles.text
+                        ]}>
+                            {this.state.menuType}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={this.close}
+                        style={[
+                            globalStyles.containerHorizontalCenter,
+                            styles.button
+                        ]}
+                    >
+                        <Text style={[
+                            globalStyles.text,
+                            globalStyles.textCenter,
+                            styles.text
+                        ]}>
+                            CLOSE
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -270,6 +335,11 @@ const styles = ScaledSheet.create({
         backgroundColor: colourLightGrey,
         borderRadius: 0,
         borderWidth: 0,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        height: 50,
         flex: 1
     },
 
@@ -278,48 +348,48 @@ const styles = ScaledSheet.create({
         flex: 1
     },
 
-    buttonCounter: {
-        alignItems: 'center',
+    containerBody: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        marginLeft: 2,
+        marginRight: 2,
+        marginTop: 2,
+        marginBottom: 2,
+        flex: 6
+    },
+
+    containerButtons: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'stretch',
+        position: 'absolute',
+        bottom: 0,
+        margin: 2,
+        flex: 2
+    },
+
+    containerHeader: {
+        flexDirection: 'row',
         justifyContent: 'center',
-        flex: 1
-    },
-
-    buttonCounterType: {
-        position: 'absolute',
-        right: 1,
-        bottom: 10
-    },
-
-    buttonMenu: {
-        position: 'absolute',
-        left: 1,
-        bottom: 10
+        alignItems: 'stretch',
+        margin: 2,
+        flex: 2
     },
 
     containerMain: {
         borderWidth: 2,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
         alignItems: 'stretch',
-        flexDirection: 'row',
-        justifyContent: 'center',
         margin: 0,
         padding: 0,
         flex: 1
     },
 
-    containerCounterValue: {
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
-    },
-
     textInput: {
         ...globalStyles.textLarge,
-        borderWidth: 2,
-        opacity: .5
+        borderWidth: 2
     },
 
     sliderRow: {
