@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BackHandler, Text, TouchableOpacity, View } from 'react-native';
 
 import moment from 'moment';
-import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
 import { ScaledSheet } from 'react-native-size-matters';
 import { HueSlider, SaturationSlider, LightnessSlider } from 'react-native-color';
@@ -12,13 +11,19 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { addHistory } from '../actions/GameAction';
 import { updatePlayer } from '../actions/PlayerAction';
 import { globalStyles } from '../config/styles';
-import { Input, MenuContent, MenuItem } from '../components/index';
-import { colourDarkGrey, colourLightGrey, colourInvisible } from '../config/colours';
-import { throwStatement } from '@babel/types';
+import { Input } from '../components/index';
+import { colourDarkGrey, colourLightGrey } from '../config/colours';
 
 const PROFILE_MENU_UPDATE = 'UPDATE';
 const PROFILE_MENU_SAVE = 'SAVE';
 
+/**
+ * Profile screen. Allows editing of profile options for a saved profile or the current profile options applied to a specific PlayerArea
+ * Navigation params:
+ * player: playerId of the player to change temporary profile settings for
+ * menuType: whether to edit a current player profile PROFILE_MENU_UPDATE or make changes to a saved profile PROFILE_MENU_SAVE
+ * onClose: function to run when the screen is closed
+ */
 class ProfileScreen extends Component {
     constructor(props) {
         super(props);
@@ -53,33 +58,21 @@ class ProfileScreen extends Component {
             menuType: menuType,
             selectedOption: 'Player Name'
         }
-
-        this.setName = this.setName.bind(this);
-        this.setForegroundColour = this.setForegroundColour.bind(this);
-        this.setBackgroundColour = this.setBackgroundColour.bind(this);
-        this.setBackgroundImage = this.setBackgroundImage.bind(this);
-        this.setSelectedOption = this.setSelectedOption.bind(this);
-        this.updateValues = this.updateValues.bind(this);
-        this.updatePlayerValues = this.updatePlayerValues.bind(this);
-        this.close = this.close.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.getComponentsForRendering = this.getComponentsForRendering.bind(this);
-        this.renderInputComponent = this.renderInputComponent.bind(this);
     }
 
-    setName(newName) {
+    setName = (newName) => {
         this.setState({name: newName});
     }
 
-    setForegroundColour(newColour) {
+    setForegroundColour = (newColour) => {
         this.setState({foregroundColour: newColour});
     }
 
-    setBackgroundColour(newColour) {
+    setBackgroundColour = (newColour) => {
         this.setState({backgroundColour: newColour});
     }
 
-    setBackgroundImage(newImage) {
+    setBackgroundImage = (newImage) => {
         this.setState({backgroundImage: newImage});
     }
 
@@ -87,7 +80,7 @@ class ProfileScreen extends Component {
         this.setState({selectedOption: value});
     }
 
-    updateValues() {
+    updateValues = () => {
         switch (this.state.menuType) {
             case PROFILE_MENU_SAVE:
                 this.saveProfile();
@@ -98,7 +91,7 @@ class ProfileScreen extends Component {
         }
     }
 
-    updatePlayerValues() {
+    updatePlayerValues = () => {
         let name = this.state.name === undefined || this.state.name === null ? "" : this.state.name;
         let foregroundColour = this.state.foregroundColour === undefined || this.state.foregroundColour === null ? "" : tinyColor(this.state.foregroundColour).toHslString();
         let backgroundColour = this.state.backgroundColour === undefined || this.state.backgroundColour === null ? "" : tinyColor(this.state.backgroundColour).toHslString();
@@ -107,16 +100,16 @@ class ProfileScreen extends Component {
         this.props.updatePlayer(this.state.playerId, name, foregroundColour, backgroundColour, backgroundImage);
     }
 
-    saveProfile() {
+    saveProfile = () => {
         //To do
     }
 
-    close() {
+    close = () => {
+        this.props.navigation.state.params.onClose ? this.props.navigation.state.params.onClose() : null;
         this.props.navigation.goBack();
     }
 
     componentDidMount() {
-        Orientation.lockToLandscape();
         BackHandler.addEventListener('hardwareBackPress', this.props.navigation.goBack);
     }
 
@@ -131,7 +124,7 @@ class ProfileScreen extends Component {
     updateBackgroundSaturation = s => this.setState({ backgroundColour: {...this.state.backgroundColour, s } });
     updateBackgroundLightness = l => this.setState({ backgroundColour: {...this.state.backgroundColour, l } });
 
-    getComponentsForRendering() {
+    getComponentsForRendering = () => {
         let name = this.state.name === undefined || this.state.name === null ? "" : this.state.name;
         let foregroundColour = this.state.foregroundColour === undefined || this.state.foregroundColour === null ? "" : tinyColor(this.state.foregroundColour).toHslString();
         let backgroundColour = this.state.backgroundColour === undefined || this.state.backgroundColour === null ? "" : tinyColor(this.state.backgroundColour).toHslString();
@@ -144,7 +137,7 @@ class ProfileScreen extends Component {
         }
     }
 
-    renderInputComponent(selectedOption) {
+    renderInputComponent = (selectedOption) => {
         components = this.getComponentsForRendering();
         switch (selectedOption) {
             case 'Player Name':
@@ -160,12 +153,13 @@ class ProfileScreen extends Component {
                                     backgroundColor: tinyColor({...this.state.backgroundColour, a: .3}).toHslString(),
                                     borderColor: components.foregroundColour,
                                     borderWidth: 2,
-                                    flex: 1
+                                    height: 60,
+                                    flex: 0
                                 }
                             ]}
                             value={components.name.toString()}
                         />
-                        <View style={{flex: 5}}/>
+                        <View />
                     </View>
                 )
             case 'Foreground Colour':
@@ -246,7 +240,9 @@ class ProfileScreen extends Component {
                     </View>
                 )
             default:
-                return null;
+                return(
+                    <View style={styles.containerBody} />
+                )
         }
     }
 
@@ -290,9 +286,7 @@ class ProfileScreen extends Component {
                         onSelect={(idx, value) => this.setSelectedOption(idx, value)}
                     />
                 </View>
-                <View style={[styles.containerBody, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColor}]}>
-                    {selectedComponent}
-                </View>
+                {selectedComponent}
                 <View style={[styles.containerButtons, {backgroundColor: components.backgroundColour, foregroundColor: components.foregroundColor}]}>
                     <TouchableOpacity 
                         onPress={this.updateValues}
@@ -339,7 +333,6 @@ const styles = ScaledSheet.create({
         marginRight: 5,
         marginTop: 5,
         marginBottom: 5,
-        height: 50,
         flex: 1
     },
 
@@ -356,17 +349,14 @@ const styles = ScaledSheet.create({
         marginRight: 2,
         marginTop: 2,
         marginBottom: 2,
-        flex: 6
+        flex: 1
     },
 
     containerButtons: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'stretch',
-        position: 'absolute',
-        bottom: 0,
-        margin: 2,
-        flex: 2
+        height: 50
     },
 
     containerHeader: {
@@ -374,7 +364,7 @@ const styles = ScaledSheet.create({
         justifyContent: 'center',
         alignItems: 'stretch',
         margin: 2,
-        flex: 2
+        height: 50
     },
 
     containerMain: {
@@ -387,11 +377,6 @@ const styles = ScaledSheet.create({
         flex: 1
     },
 
-    textInput: {
-        ...globalStyles.textLarge,
-        borderWidth: 2
-    },
-
     sliderRow: {
         alignSelf: 'stretch',
         marginLeft: 12,
@@ -399,6 +384,11 @@ const styles = ScaledSheet.create({
         marginTop: 12,
         marginBottom: 12
     },
+
+    textInput: {
+        ...globalStyles.textLarge,
+        borderWidth: 2
+    }
 })
 
 export default ProfileScreen = connect(

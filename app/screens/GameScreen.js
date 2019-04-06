@@ -13,7 +13,6 @@ import IconButton from '../components/IconButton';
 import PlayerArea from '../components/PlayerArea';
 import { colourGrey } from '../config/colours';
 import { globalStyles } from '../config/styles';
-import { PROFILE_MENU_UPDATE, PROFILE_SCREEN_STANDALONE } from '../screens/ProfileScreen';
 
 const MENU_SHOW = 'MENU_SHOW';
 const MENU_HIDE = 'MENU_HIDE';
@@ -99,76 +98,85 @@ class GameScreen extends Component {
     renderPlayerAreas = () => {
         switch (this.props.game.numberPlayers) {
             case 6:
-                Orientation.lockToLandscape();
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={0} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={1} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={2} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={2} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={5} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={5} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={4} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={4} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={3} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={3} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                         </View>
                     </View>
                 )
             case 4:
-                Orientation.lockToLandscape();
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={0} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                                <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={1} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                         </View>
                         <View style={globalStyles.containerScreenHorizontal}>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={3} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={3} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                             <View style={[globalStyles.containerScreenVertical]}>
-                                <PlayerArea player={2} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                                <PlayerArea player={2} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                             </View>
                         </View>
                     </View>
                 );
             case 2:
             default:
-                Orientation.lockToPortrait();
                 return (
                     <View style={globalStyles.containerScreenVertical}>
                         <View style={[globalStyles.containerScreenVertical, globalStyles.containerRotate180]}>
-                            <PlayerArea player={0} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                            <PlayerArea player={0} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                         </View>
                         <View style={[globalStyles.containerScreenVertical]}>
-                            <PlayerArea player={1} editProfile={this.openProfileScreen} navigation={this.props.navigation}/>
+                            <PlayerArea player={1} orientationLock={this.orientationLock} navigation={this.props.navigation}/>
                         </View>
                     </View>
                 );
         }
     }
 
-    openProfileScreen(playerId) {
-        this.props.navigation.navigate('ProfileScreen', {player: playerId, menuType: PROFILE_MENU_UPDATE, screenType: PROFILE_SCREEN_STANDALONE});
+    orientationLock = () => {
+        switch (this.props.game.numberPlayers) {
+            case 6:
+                Orientation.lockToLandscape();
+                break;
+            case 4:
+                Orientation.lockToLandscape();
+                break;
+            case 2:
+            default:
+                Orientation.lockToPortrait();
+                break;
+        }
     }
 
     componentDidMount() {
+        this.orientationLock();
         BackHandler.addEventListener('hardwareBackPress', this.exitGame);
     }
 
@@ -197,6 +205,7 @@ class GameScreen extends Component {
                         : this.state.menuState === MENU_SHOWN ? 
                             <GameMenu
                                 close={this.toggleMenu}
+                                orientationLock={this.orientationLock}
                                 mainMenu={this.mainMenu}
                                 restart={this.restart}
                             />

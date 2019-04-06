@@ -10,7 +10,7 @@ import { IconButton } from '../components/index';
 import { globalStyles } from '../config/styles';
 import { addHistory } from '../actions/GameAction';
 import { updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updateCurrentCounter } from '../actions/PlayerAction';
-import { PROFILE_MENU_UPDATE, PROFILE_SCREEN_STANDALONE } from '../screens/ProfileScreen';
+import { PROFILE_MENU_UPDATE } from '../screens/ProfileScreen';
 
 const ICON_HEALTH = 'heart';
 const ICON_POISON = 'skull-crossbones';
@@ -26,11 +26,13 @@ const ICON_ERROR = 'exclamation-triangle';
 /**
  * Component that displays player information
  * Props:
- * player: temp prop for display debugging
+ * player: playerId of the player this PlayerArea represents
+ * orientationLock: function to pass through to ProfileScreen onClose to change orientation lock settings when the ProfileScreen is closed
+ * navigation: the navigation object of the class the PlayerArea belongs to. Used to navigate to the ProfileScreen
  */
 class PlayerArea extends Component {
 
-    changeCurrentCounter () {
+    changeCurrentCounter() {
         this.props.players[this.props.player].currentCounter >= (2 + (this.props.game.numberPlayers)-1) ? this.props.updateCurrentCounter(this.props.player, 0) : this.props.updateCurrentCounter(this.props.player, (this.props.players[this.props.player].currentCounter+1));
         let opposingPlayerId = 0
         switch(this.props.players[this.props.player].currentCounter) {
@@ -95,7 +97,7 @@ class PlayerArea extends Component {
     }
 
     profileMenu() {
-        this.props.navigation.navigate('ProfileScreen', {player: this.props.player, menuType: PROFILE_MENU_UPDATE, screenType: PROFILE_SCREEN_STANDALONE});
+        this.props.navigation.navigate('ProfileScreen', {player: this.props.player, menuType: PROFILE_MENU_UPDATE, onClose: this.props.orientationLock});
     }
 
     render () {
