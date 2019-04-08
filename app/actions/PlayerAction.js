@@ -83,11 +83,16 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
     }
 }
 
-export function updateCurrentCounter(playerId, amount) {
+/**
+ * Create an UPDATE_CURRENT_COUNTER action
+ * @param {*} playerId the id of the player to edit
+ * @param {*} number the number of the current counter being used by the player
+ */
+export function updateCurrentCounter(playerId, number) {
     return {
         type: UPDATE_CURRENT_COUNTER,
         playerId: playerId,
-        amount: amount
+        number: number
     }
 }
 
