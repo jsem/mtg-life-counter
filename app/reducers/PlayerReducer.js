@@ -72,7 +72,7 @@ export default function playerReducer(state = initialState, action) {
             if(action.playerId == null || (action.playerId in newState) == false)  {
                 return state;
             }
-            newState[action.playerId].currentCounter = action.amount;
+            newState[action.playerId].currentCounter = action.number;
             return newState;
         //update player customisations from player menu for specified player. playerId cannot equal null
         case UPDATE_PLAYER:
