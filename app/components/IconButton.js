@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import { ScaledSheet } from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { globalStyles } from '../config/styles';
 

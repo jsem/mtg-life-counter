@@ -1,6 +1,6 @@
 import playerReducer, { initialState } from './PlayerReducer';
 import { endGame, startGame } from '../actions/GameAction';
-import { clearPlayers, createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer } from '../actions/PlayerAction';
+import { clearPlayers, createPlayer, updateLife, updatePoison, updateCommanderTax, updateCommanderDamage, updatePlayer, updateCurrentCounter } from '../actions/PlayerAction';
 import { DEFAULT_PROFILE } from '../config/defaultProfiles';
 import { colourDarkGrey, colourLightGrey } from '../config/colours';
 
@@ -68,7 +68,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -92,7 +93,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -111,7 +113,8 @@ describe('playerReducer', () => {
                     life: 20,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -136,7 +139,8 @@ describe('playerReducer', () => {
                     life: 20,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -163,7 +167,8 @@ describe('playerReducer', () => {
                     life: 20,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -198,7 +203,8 @@ describe('playerReducer', () => {
                     life: 20,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -206,7 +212,8 @@ describe('playerReducer', () => {
                     life: 20,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -232,7 +239,8 @@ describe('playerReducer', () => {
                     life: 1,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -256,7 +264,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -281,7 +290,8 @@ describe('playerReducer', () => {
                     life: startingLife,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -306,7 +316,8 @@ describe('playerReducer', () => {
                     life: startingLife,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -332,7 +343,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 1,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -356,7 +368,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -384,7 +397,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 1,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -408,7 +422,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -434,7 +449,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 1,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -458,7 +474,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -486,7 +503,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 1,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -510,7 +528,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -540,7 +559,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -548,7 +568,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -576,7 +597,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -584,7 +606,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -612,7 +635,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -620,7 +644,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -648,7 +673,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -656,7 +682,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -686,7 +713,8 @@ describe('playerReducer', () => {
                     commanderTax: 0,
                     commanderDamage: {
                         '1': 1
-                    }
+                    },
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -694,7 +722,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -728,7 +757,8 @@ describe('playerReducer', () => {
                     commanderTax: 0,
                     commanderDamage: {
                         '1': 3
-                    }
+                    },
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -736,7 +766,85 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
+                }
+            })
+        })
+    })
+
+    describe ('playerReducer#UPDATE_CURRENT_COUNTER', () => {
+        it('create a player and change current counter to 1', () => {
+            let playerId = 0;
+            let currentCounter = 1;
+
+            expect(
+                playerReducer(
+                    playerReducer(
+                        undefined,
+                        createPlayer(null, null)
+                    ),
+                    updateCurrentCounter(playerId, currentCounter)
+                )
+            ).toEqual({
+                '0': {
+                    playerId: 0,
+                    ...DEFAULT_PROFILE,
+                    life: 0,
+                    poison: 0,
+                    commanderTax: 0,
+                    commanderDamage: {},
+                    currentCounter: 1
+                }
+            })
+        })
+
+        it('returns state if null playerId is passed', () => {
+            let playerId = null;
+            let currentCounter = 1;
+
+            expect(
+                playerReducer(
+                    playerReducer(
+                        undefined,
+                        createPlayer(null, null)
+                    ),
+                    updateCurrentCounter(playerId, currentCounter)
+                )
+            ).toEqual({
+                '0': {
+                    playerId: 0,
+                    ...DEFAULT_PROFILE,
+                    life: 0,
+                    poison: 0,
+                    commanderTax: 0,
+                    commanderDamage: {},
+                    currentCounter: 0
+                }
+            })
+        })
+
+        it('returns state if a non-existant playerId is passed', () => {
+            let playerId = 1;
+            let currentCounter = 1;
+
+            expect(
+                playerReducer(
+                    playerReducer(
+                        undefined,
+                        createPlayer(null, null)
+                    ),
+                    updateCurrentCounter(playerId, currentCounter)
+                )
+            ).toEqual({
+                '0': {
+                    playerId: 0,
+                    ...DEFAULT_PROFILE,
+                    life: 0,
+                    poison: 0,
+                    commanderTax: 0,
+                    currentCounter: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -767,7 +875,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -791,7 +900,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -815,7 +925,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -839,7 +950,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -863,7 +975,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })
@@ -887,7 +1000,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 },
                 '1': {
                     playerId: 1,
@@ -898,7 +1012,8 @@ describe('playerReducer', () => {
                     life: 0,
                     poison: 0,
                     commanderTax: 0,
-                    commanderDamage: {}
+                    commanderDamage: {},
+                    currentCounter: 0
                 }
             })
         })

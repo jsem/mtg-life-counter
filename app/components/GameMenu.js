@@ -94,6 +94,11 @@ class GameMenu extends Component {
         Orientation.lockToPortrait();
     }
 
+    close = () => {
+        this.props.orientationLock();
+        this.props.close();
+    }
+
     render() {
         let historyCounter = 0;
         return (
@@ -225,7 +230,7 @@ class GameMenu extends Component {
                     </MenuItem>
                     <MenuItem>
                         <TouchableOpacity 
-                            onPress={this.props.close}
+                            onPress={this.close}
                             style={[
                                 globalStyles.containerHorizontalCenter,
                                 styles.button

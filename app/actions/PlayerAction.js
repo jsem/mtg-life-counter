@@ -4,6 +4,7 @@ export const UPDATE_LIFE = 'UPDATE_LIFE';
 export const UPDATE_POISON = 'UPDATE_POISON';
 export const UPDATE_COMMANDER_TAX = 'UPDATE_COMMANDER_TAX';
 export const UPDATE_COMMANDER_DAMAGE = 'UPDATE_COMMANDER_DAMAGE';
+export const UPDATE_CURRENT_COUNTER = 'UPDATE_CURRENT_COUNTER';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 /**
@@ -79,6 +80,19 @@ export function updateCommanderDamage(playerId, opposingPlayerId, amount) {
         playerId: playerId,
         opposingPlayerId: opposingPlayerId,
         amount: amount
+    }
+}
+
+/**
+ * Create an UPDATE_CURRENT_COUNTER action
+ * @param {*} playerId the id of the player to edit
+ * @param {*} number the number of the current counter being used by the player
+ */
+export function updateCurrentCounter(playerId, number) {
+    return {
+        type: UPDATE_CURRENT_COUNTER,
+        playerId: playerId,
+        number: number
     }
 }
 
